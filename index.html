@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaptura Creators ⁄ Candidatura</title>
-<meta name="description" content="Candidate-se à Kaptura: rede curada de creators e hotéis do Brasil inteiro. Permuta com contrato. Sem sorteio, curadoria.">
+<meta name="description" content="Kaptura: rede curada de creators e hospedagens do Brasil inteiro. Permuta com contrato. Sem sorteio, curadoria.">
 <link rel="canonical" href="https://kapturacreators.com.br/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kaptura Creators ⁄ Você cria. O Brasil te hospeda.">
-<meta property="og:description" content="Rede curada de creators e hotéis do Brasil inteiro. Permuta com contrato. Sem sorteio, curadoria. Candidate-se.">
+<meta property="og:description" content="Rede curada de creators e hospedagens do Brasil inteiro. Permuta com contrato. Sem sorteio, curadoria.">
 <meta property="og:url" content="https://kapturacreators.com.br/">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
@@ -39,14 +39,6 @@ body{
   flex-direction:column;
   overflow-x:hidden;
 }
-.display{
-  font-family:'Anton',sans-serif;
-  text-transform:uppercase;
-  transform:skewX(var(--skew));
-  display:inline-block;
-  letter-spacing:.02em;
-}
-
 header{
   display:flex;
   justify-content:space-between;
@@ -54,6 +46,7 @@ header{
   padding:20px 24px;
   position:relative;
   z-index:5;
+  gap:12px;
 }
 .logo{
   font-family:'Anton',sans-serif;
@@ -101,7 +94,6 @@ header{
   .marquee-track{animation:none !important}
   *{transition:none !important}
 }
-
 .diagonal-top{
   position:absolute;
   top:0;right:-40px;
@@ -117,7 +109,6 @@ header{
   width:12px;height:100%;
   background:var(--tinta);
 }
-
 main{
   flex:1;
   display:flex;
@@ -127,7 +118,6 @@ main{
   position:relative;
   z-index:2;
 }
-
 .hero{
   text-align:center;
   max-width:640px;
@@ -137,6 +127,9 @@ main{
   background:var(--tinta);
   color:var(--amarelo);
   padding:2px 12px;
+  white-space:nowrap;
+  display:inline-block;
+  margin-top:8px;
 }
 .hero h1{
   font-family:'Anton',sans-serif;
@@ -147,18 +140,16 @@ main{
   color:var(--tinta);
   padding:0 12px;
 }
-.hero .tarja{white-space:nowrap;display:inline-block;margin-top:8px;}
 .hero p{
   margin-top:16px;
   font-size:16px;
   font-weight:500;
-  max-width:440px;
+  max-width:460px;
   margin-left:auto;
   margin-right:auto;
   line-height:1.55;
 }
 .hero p b{font-weight:700;}
-
 .viewfinder{
   position:relative;
   width:100%;
@@ -176,7 +167,6 @@ main{
 .vf-corner.tr{top:-6px;right:-6px;border-top-width:5px;border-right-width:5px;}
 .vf-corner.bl{bottom:-6px;left:-6px;border-bottom-width:5px;border-left-width:5px;}
 .vf-corner.br{bottom:-6px;right:-6px;border-bottom-width:5px;border-right-width:5px;}
-
 .take{
   display:flex;
   justify-content:space-between;
@@ -208,11 +198,55 @@ main{
   background:var(--ciano);
   transition:width .35s ease;
 }
-
+/* tela inicial de escolha */
+.fork{text-align:center;}
+.fork h2{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  transform:skewX(var(--skew));
+  font-size:clamp(24px,4.5vw,32px);
+  margin-bottom:8px;
+}
+.fork .hint{
+  font-size:14px;
+  color:#3E6A7D;
+  margin-bottom:26px;
+}
+.fork-btn{
+  display:block;
+  width:100%;
+  border:none;
+  cursor:pointer;
+  text-align:left;
+  padding:20px 22px;
+  margin-bottom:14px;
+  transform:skewX(var(--skew));
+  transition:transform .12s;
+  font-family:'Work Sans',sans-serif;
+}
+.fork-btn:active{transform:skewX(var(--skew)) scale(.98);}
+.fork-btn > div{transform:skewX(10deg);}
+.fork-btn .t{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  font-size:22px;
+  letter-spacing:.06em;
+}
+.fork-btn .d{
+  font-size:13px;
+  font-weight:500;
+  margin-top:4px;
+  line-height:1.4;
+}
+.fork-creator{background:var(--ciano);}
+.fork-creator .t{color:var(--tinta);}
+.fork-creator .d{color:#0A5B7A;}
+.fork-hosp{background:var(--tinta);}
+.fork-hosp .t{color:var(--amarelo);}
+.fork-hosp .d{color:#9BC4D4;}
 .step{display:none;}
 .step.active{display:block;animation:enter .3s ease;}
 @keyframes enter{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-
 .step h2{
   font-family:'Anton',sans-serif;
   text-transform:uppercase;
@@ -227,7 +261,6 @@ main{
   margin-bottom:22px;
   line-height:1.5;
 }
-
 input[type=text],input[type=email],input[type=tel],input[type=url]{
   width:100%;
   border:3px solid var(--tinta);
@@ -241,7 +274,6 @@ input[type=text],input[type=email],input[type=tel],input[type=url]{
 }
 input:focus{border-color:var(--ciano);box-shadow:0 0 0 3px var(--agua-clara);}
 input::placeholder{color:#9BB4BE;font-weight:400;}
-
 .chips{display:flex;flex-wrap:wrap;gap:10px;}
 .chip{
   border:3px solid var(--tinta);
@@ -256,8 +288,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
 }
 .chip:hover{background:var(--sol-claro);}
 .chip.selected{background:var(--tinta);color:var(--amarelo);}
-.chip.selected.cy{background:var(--tinta);color:var(--ciano);}
-
 .options{display:flex;flex-direction:column;gap:10px;}
 .opt{
   border:3px solid var(--tinta);
@@ -280,7 +310,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
   flex-shrink:0;
 }
 .opt.selected .mark{background:var(--ciano);border-color:var(--ciano);}
-
 .check-group{display:flex;flex-direction:column;gap:14px;}
 .check{
   display:flex;
@@ -295,7 +324,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
   line-height:1.5;
 }
 .check input{width:20px;height:20px;margin-top:1px;accent-color:var(--tinta);flex-shrink:0;}
-
 .error{
   display:none;
   margin-top:12px;
@@ -307,7 +335,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
   padding:8px 12px;
 }
 .error.show{display:block;}
-
 .nav{
   display:flex;
   justify-content:space-between;
@@ -334,7 +361,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
 .btn-back:hover{background:var(--sol-claro);}
 .btn-submit{background:var(--ciano);color:var(--tinta);}
 .btn-submit:hover{background:#4AD6FC;}
-
 .success{
   display:none;
   text-align:center;
@@ -362,7 +388,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
   margin-top:22px;
   transform:skewX(var(--skew));
 }
-
 .marquee{
   background:var(--tinta);
   overflow:hidden;
@@ -396,7 +421,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
   background:var(--ciano);
   transform:skewX(-30deg);
 }
-
 .graves{
   background:var(--tinta);
   color:var(--offwhite);
@@ -439,7 +463,6 @@ input::placeholder{color:#9BB4BE;font-weight:400;}
   margin-top:4px;
   text-transform:uppercase;
 }
-
 footer{
   background:var(--offwhite);
   padding:16px 24px;
@@ -458,7 +481,6 @@ footer .fl{
 }
 footer .fl .u{color:#E5B412;}
 footer .fr{font-size:11px;letter-spacing:.1em;color:#9BB4BE;font-weight:500;}
-
 @media(max-width:640px){
   header{padding:16px;gap:10px;}
   .logo{font-size:18px;}
@@ -470,6 +492,7 @@ footer .fr{font-size:11px;letter-spacing:.1em;color:#9BB4BE;font-weight:500;}
   .hero p{font-size:14px;padding:0 6px;}
   .viewfinder{padding:34px 18px 26px;}
   .step h2{font-size:20px;}
+  .fork-btn .t{font-size:18px;}
   .nav{flex-wrap:wrap;}
   .btn{font-size:14px;padding:13px 20px;}
   .btn-back{padding:11px 16px;}
@@ -495,7 +518,7 @@ footer .fr{font-size:11px;letter-spacing:.1em;color:#9BB4BE;font-weight:500;}
 <main>
   <div class="hero">
     <h1>VOCÊ CRIA.<br>O BRASIL <span class="tarja">TE&nbsp;HOSPEDA.</span></h1>
-    <p>Rede curada de creators e hotéis do Brasil inteiro. Permuta com <b>contrato e entregáveis definidos</b>. Sem sorteio. Curadoria.</p>
+    <p>Rede curada que conecta creators e hospedagens do Brasil inteiro. Permuta com <b>contrato e entregáveis definidos</b>. Sem sorteio. Curadoria.</p>
   </div>
 
   <div class="viewfinder" id="vf">
@@ -504,169 +527,266 @@ footer .fr{font-size:11px;letter-spacing:.1em;color:#9BB4BE;font-weight:500;}
     <span class="vf-corner bl" aria-hidden="true"></span>
     <span class="vf-corner br" aria-hidden="true"></span>
 
-    <div class="take">
-      <span class="label" id="takeLabel">TAKE 01 ⁄ 15</span>
-      <span class="rec-mini"><span class="rec-dot"></span>REC</span>
+    <!-- TELA INICIAL: escolha do caminho -->
+    <div class="fork" id="fork">
+      <h2>QUEM É VOCÊ NESSA CENA?</h2>
+      <p class="hint">Escolhe seu lado da permuta.</p>
+      <button type="button" class="fork-btn fork-creator" data-flow="c">
+        <div>
+          <div class="t">SOU CREATOR →</div>
+          <div class="d">Troque seu conteúdo por estadias em hotéis e pousadas do Brasil inteiro.</div>
+        </div>
+      </button>
+      <button type="button" class="fork-btn fork-hosp" data-flow="h">
+        <div>
+          <div class="t">SOU HOSPEDAGEM →</div>
+          <div class="d">Receba conteúdo profissional e alcance qualificado em troca de diárias.</div>
+        </div>
+      </button>
     </div>
-    <div class="progress"><div class="progress-fill" id="bar"></div></div>
 
-    <form id="form" novalidate>
-
-      <div class="step active" data-step="1">
-        <h2>QUAL SEU @?</h2>
-        <p class="hint">Seu perfil principal no Instagram.</p>
-        <input type="text" id="handle" placeholder="@seuperfil" autocomplete="off">
+    <div id="formArea" style="display:none;">
+      <div class="take">
+        <span class="label" id="takeLabel">TAKE 01 ⁄ 14</span>
+        <span class="rec-mini"><span class="rec-dot"></span>REC</span>
       </div>
+      <div class="progress"><div class="progress-fill" id="bar"></div></div>
 
-      <div class="step" data-step="2">
-        <h2>SEU NOME COMPLETO</h2>
-        <p class="hint">Como aparece no seu documento. Vai pro contrato de permuta.</p>
-        <input type="text" id="nome" placeholder="Nome e sobrenome" autocomplete="name">
-      </div>
+      <form id="form" novalidate>
 
-      <div class="step" data-step="3">
-        <h2>SEU MELHOR E-MAIL</h2>
-        <p class="hint">É por aqui que chega o resultado da curadoria.</p>
-        <input type="email" id="email" placeholder="voce@email.com" autocomplete="email">
-      </div>
-
-      <div class="step" data-step="4">
-        <h2>SEU WHATSAPP</h2>
-        <p class="hint">Com DDD. Usamos só pra alinhar estadias aprovadas.</p>
-        <input type="tel" id="whats" placeholder="(12) 99999-9999" autocomplete="tel" inputmode="tel">
-      </div>
-
-      <div class="step" data-step="5">
-        <h2>ONDE VOCÊ MORA?</h2>
-        <p class="hint">Cidade e estado. Ajuda no matching com hotéis perto de você.</p>
-        <input type="text" id="cidade" placeholder="Cidade/UF" autocomplete="address-level2">
-      </div>
-
-      <div class="step" data-step="6">
-        <h2>SOBRE O QUE FALA SEU PERFIL?</h2>
-        <p class="hint">Marque tudo que se aplica.</p>
-        <div class="chips" id="nichos">
-          <span class="chip" data-v="Viagem">✈️ Viagem</span>
-          <span class="chip" data-v="Gastronomia">🍽️ Gastronomia</span>
-          <span class="chip" data-v="Lifestyle">🌴 Lifestyle</span>
-          <span class="chip" data-v="Cuidado pessoal">🧖 Cuidado pessoal</span>
-          <span class="chip" data-v="Vida noturna">🌙 Vida noturna</span>
-          <span class="chip" data-v="Academia e fitness">💪 Academia</span>
-          <span class="chip" data-v="Moda">👗 Moda</span>
-          <span class="chip" data-v="Esportes">🏄 Esportes</span>
-          <span class="chip" data-v="Beleza">💄 Beleza</span>
-          <span class="chip" data-v="Família">👨‍👩‍👧 Família</span>
+        <!-- ========== FLUXO CREATOR ========== -->
+        <div class="step" data-flow="c" data-step="1">
+          <h2>QUAL SEU @?</h2>
+          <p class="hint">Seu perfil principal no Instagram.</p>
+          <input type="text" id="handle" placeholder="@seuperfil" autocomplete="off">
         </div>
-        <input type="text" id="nichoOutro" placeholder="Outro tópico? Escreve aqui" style="margin-top:14px;">
-      </div>
 
-      <div class="step" data-step="7">
-        <h2>QUANTOS SEGUIDORES?</h2>
-        <p class="hint">No perfil que você indicou.</p>
-        <div class="options" data-single="seguidores">
-          <div class="opt" data-v="abaixo de 1.000"><span class="mark"></span>Abaixo de 1.000</div>
-          <div class="opt" data-v="1.000 a 5.000"><span class="mark"></span>1.000 a 5.000</div>
-          <div class="opt" data-v="5.000 a 10.000"><span class="mark"></span>5.000 a 10.000</div>
-          <div class="opt" data-v="10.000 a 25.000"><span class="mark"></span>10.000 a 25.000</div>
-          <div class="opt" data-v="acima de 25.000"><span class="mark"></span>Acima de 25.000</div>
+        <div class="step" data-flow="c" data-step="2">
+          <h2>SEU NOME COMPLETO</h2>
+          <p class="hint">Como aparece no seu documento. Vai pro contrato de permuta.</p>
+          <input type="text" id="nome" placeholder="Nome e sobrenome" autocomplete="name">
         </div>
-      </div>
 
-      <div class="step" data-step="8">
-        <h2>MÉDIA DE VIEWS NOS SEUS REELS?</h2>
-        <p class="hint">Uma estimativa honesta dos últimos 30 dias.</p>
-        <div class="options" data-single="views">
-          <div class="opt" data-v="abaixo de 1.000"><span class="mark"></span>Abaixo de 1.000</div>
-          <div class="opt" data-v="1.000 a 5.000"><span class="mark"></span>1.000 a 5.000</div>
-          <div class="opt" data-v="5.000 a 20.000"><span class="mark"></span>5.000 a 20.000</div>
-          <div class="opt" data-v="20.000 a 100.000"><span class="mark"></span>20.000 a 100.000</div>
-          <div class="opt" data-v="acima de 100.000"><span class="mark"></span>Acima de 100.000</div>
+        <div class="step" data-flow="c" data-step="3">
+          <h2>SEU MELHOR E-MAIL</h2>
+          <p class="hint">É por aqui que chega o resultado da curadoria.</p>
+          <input type="email" id="email" placeholder="voce@email.com" autocomplete="email">
         </div>
-      </div>
 
-      <div class="step" data-step="9">
-        <h2>SEU MELHOR CONTEÚDO</h2>
-        <p class="hint">Cola o link do post ou reel que é seu cartão de visita. Se tiver um de viagem ou hospedagem, melhor ainda.</p>
-        <input type="url" id="link" placeholder="https://instagram.com/..." inputmode="url">
-      </div>
-
-      <div class="step" data-step="10">
-        <h2>QUEM VIAJA COM VOCÊ?</h2>
-        <p class="hint">Formato mais comum das suas viagens de conteúdo.</p>
-        <div class="options" data-single="companhia">
-          <div class="opt" data-v="sozinho(a)"><span class="mark"></span>Sozinho(a)</div>
-          <div class="opt" data-v="casal"><span class="mark"></span>Em casal</div>
-          <div class="opt" data-v="familia"><span class="mark"></span>Com família</div>
-          <div class="opt" data-v="com fotografo/equipe"><span class="mark"></span>Com fotógrafo ou equipe</div>
+        <div class="step" data-flow="c" data-step="4">
+          <h2>SEU WHATSAPP</h2>
+          <p class="hint">Com DDD. Usamos só pra alinhar estadias aprovadas.</p>
+          <input type="tel" id="whats" placeholder="(12) 99999-9999" autocomplete="tel" inputmode="tel">
         </div>
-      </div>
 
-      <div class="step" data-step="11">
-        <h2>JÁ FEZ PERMUTA OU PUBLI COM HOTEL?</h2>
-        <p class="hint">Sem problema se ainda não. É só pra calibrar a curadoria.</p>
-        <div class="options" data-single="experiencia">
-          <div class="opt" data-v="sim, varias vezes"><span class="mark"></span>Sim, várias vezes</div>
-          <div class="opt" data-v="sim, uma ou duas"><span class="mark"></span>Sim, uma ou duas vezes</div>
-          <div class="opt" data-v="ainda nao"><span class="mark"></span>Ainda não</div>
+        <div class="step" data-flow="c" data-step="5">
+          <h2>ONDE VOCÊ MORA?</h2>
+          <p class="hint">Cidade e estado. Ajuda no matching com hotéis perto de você.</p>
+          <input type="text" id="cidade" placeholder="Cidade/UF" autocomplete="address-level2">
         </div>
-      </div>
 
-      <div class="step" data-step="12">
-        <h2>ATÉ ONDE VOCÊ VAI?</h2>
-        <p class="hint">Regiões que consegue visitar com facilidade. Marque todas.</p>
-        <div class="chips" id="regioes">
-          <span class="chip" data-v="Sudeste">Sudeste</span>
-          <span class="chip" data-v="Sul">Sul</span>
-          <span class="chip" data-v="Nordeste">Nordeste</span>
-          <span class="chip" data-v="Centro-Oeste">Centro-Oeste</span>
-          <span class="chip" data-v="Norte">Norte</span>
-          <span class="chip" data-v="Brasil inteiro">Brasil inteiro</span>
+        <div class="step" data-flow="c" data-step="6">
+          <h2>SOBRE O QUE FALA SEU PERFIL?</h2>
+          <p class="hint">Marque tudo que se aplica.</p>
+          <div class="chips" id="nichos">
+            <span class="chip" data-v="Viagem">✈️ Viagem</span>
+            <span class="chip" data-v="Gastronomia">🍽️ Gastronomia</span>
+            <span class="chip" data-v="Lifestyle">🌴 Lifestyle</span>
+            <span class="chip" data-v="Cuidado pessoal">🧖 Cuidado pessoal</span>
+            <span class="chip" data-v="Vida noturna">🌙 Vida noturna</span>
+            <span class="chip" data-v="Academia e fitness">💪 Academia</span>
+            <span class="chip" data-v="Moda">👗 Moda</span>
+            <span class="chip" data-v="Esportes">🏄 Esportes</span>
+            <span class="chip" data-v="Beleza">💄 Beleza</span>
+            <span class="chip" data-v="Família">👨‍👩‍👧 Família</span>
+          </div>
+          <input type="text" id="nichoOutro" placeholder="Outro tópico? Escreve aqui" style="margin-top:14px;">
         </div>
-      </div>
 
-      <div class="step" data-step="13">
-        <h2>SUA AGENDA</h2>
-        <p class="hint">Quando você normalmente consegue viajar.</p>
-        <div class="options" data-single="agenda">
-          <div class="opt" data-v="durante a semana"><span class="mark"></span>Durante a semana</div>
-          <div class="opt" data-v="fins de semana"><span class="mark"></span>Fins de semana</div>
-          <div class="opt" data-v="ambos"><span class="mark"></span>Ambos</div>
+        <div class="step" data-flow="c" data-step="7">
+          <h2>QUANTOS SEGUIDORES?</h2>
+          <p class="hint">No perfil que você indicou.</p>
+          <div class="options" data-single="seguidores">
+            <div class="opt" data-v="abaixo de 1.000"><span class="mark"></span>Abaixo de 1.000</div>
+            <div class="opt" data-v="1.000 a 5.000"><span class="mark"></span>1.000 a 5.000</div>
+            <div class="opt" data-v="5.000 a 10.000"><span class="mark"></span>5.000 a 10.000</div>
+            <div class="opt" data-v="10.000 a 25.000"><span class="mark"></span>10.000 a 25.000</div>
+            <div class="opt" data-v="acima de 25.000"><span class="mark"></span>Acima de 25.000</div>
+          </div>
         </div>
-      </div>
 
-      <div class="step" data-step="14">
-        <h2>COMO CONHECEU A KAPTURA?</h2>
-        <div class="options" data-single="origem">
-          <div class="opt" data-v="anuncio"><span class="mark"></span>Vi um anúncio</div>
-          <div class="opt" data-v="indicacao de creator"><span class="mark"></span>Indicação de outro creator</div>
-          <div class="opt" data-v="perfil da kaptura"><span class="mark"></span>Perfil da Kaptura no Instagram</div>
-          <div class="opt" data-v="hotel parceiro"><span class="mark"></span>Por um hotel parceiro</div>
-          <div class="opt" data-v="outro"><span class="mark"></span>Outro</div>
+        <div class="step" data-flow="c" data-step="8">
+          <h2>MÉDIA DE VIEWS NOS SEUS REELS?</h2>
+          <p class="hint">Uma estimativa honesta dos últimos 30 dias.</p>
+          <div class="options" data-single="views">
+            <div class="opt" data-v="abaixo de 1.000"><span class="mark"></span>Abaixo de 1.000</div>
+            <div class="opt" data-v="1.000 a 5.000"><span class="mark"></span>1.000 a 5.000</div>
+            <div class="opt" data-v="5.000 a 20.000"><span class="mark"></span>5.000 a 20.000</div>
+            <div class="opt" data-v="20.000 a 100.000"><span class="mark"></span>20.000 a 100.000</div>
+            <div class="opt" data-v="acima de 100.000"><span class="mark"></span>Acima de 100.000</div>
+          </div>
         </div>
-      </div>
 
-      <div class="step" data-step="15">
-        <h2>ÚLTIMO TAKE</h2>
-        <p class="hint">Pra fechar a candidatura, confirma os combinados:</p>
-        <div class="check-group">
-          <label class="check"><input type="checkbox" id="ckPermuta"><span>Entendo que a Kaptura funciona por <b>permuta com entregáveis definidos em contrato</b>, sem pagamento em dinheiro pelo hotel.</span></label>
-          <label class="check"><input type="checkbox" id="ckIdade"><span>Confirmo que tenho <b>18 anos ou mais</b>.</span></label>
-          <label class="check"><input type="checkbox" id="ckLgpd"><span>Autorizo o uso dos meus dados para o processo de curadoria e contato da Kaptura, conforme a <b>LGPD</b>. Nada de spam.</span></label>
+        <div class="step" data-flow="c" data-step="9">
+          <h2>QUEM VIAJA COM VOCÊ?</h2>
+          <p class="hint">Formato mais comum das suas viagens de conteúdo.</p>
+          <div class="options" data-single="companhia">
+            <div class="opt" data-v="sozinho(a)"><span class="mark"></span>Sozinho(a)</div>
+            <div class="opt" data-v="casal"><span class="mark"></span>Em casal</div>
+            <div class="opt" data-v="familia"><span class="mark"></span>Com família</div>
+            <div class="opt" data-v="com fotografo/equipe"><span class="mark"></span>Com fotógrafo ou equipe</div>
+          </div>
         </div>
-      </div>
 
-      <div class="error" id="err">Preenche esse campo pra seguir.</div>
+        <div class="step" data-flow="c" data-step="10">
+          <h2>JÁ FEZ PERMUTA OU PUBLI COM HOTEL?</h2>
+          <p class="hint">Sem problema se ainda não. É só pra calibrar a curadoria.</p>
+          <div class="options" data-single="experiencia">
+            <div class="opt" data-v="sim, varias vezes"><span class="mark"></span>Sim, várias vezes</div>
+            <div class="opt" data-v="sim, uma ou duas"><span class="mark"></span>Sim, uma ou duas vezes</div>
+            <div class="opt" data-v="ainda nao"><span class="mark"></span>Ainda não</div>
+          </div>
+        </div>
 
-      <div class="nav">
-        <button type="button" class="btn btn-back" id="btnBack" style="visibility:hidden;"><span>Voltar</span></button>
-        <button type="button" class="btn btn-next" id="btnNext"><span>Próximo take →</span></button>
-      </div>
-    </form>
+        <div class="step" data-flow="c" data-step="11">
+          <h2>ATÉ ONDE VOCÊ VAI?</h2>
+          <p class="hint">Marque tudo que se aplica, da sua cidade ao Brasil inteiro.</p>
+          <div class="chips" id="regioes">
+            <span class="chip" data-v="Apenas minha cidade">Apenas minha cidade</span>
+            <span class="chip" data-v="Minha cidade e arredores">Minha cidade e arredores</span>
+            <span class="chip" data-v="Sudeste">Sudeste</span>
+            <span class="chip" data-v="Sul">Sul</span>
+            <span class="chip" data-v="Nordeste">Nordeste</span>
+            <span class="chip" data-v="Centro-Oeste">Centro-Oeste</span>
+            <span class="chip" data-v="Norte">Norte</span>
+            <span class="chip" data-v="Brasil inteiro">Brasil inteiro</span>
+          </div>
+        </div>
+
+        <div class="step" data-flow="c" data-step="12">
+          <h2>SUA AGENDA</h2>
+          <p class="hint">Quando você normalmente consegue viajar.</p>
+          <div class="options" data-single="agenda">
+            <div class="opt" data-v="durante a semana"><span class="mark"></span>Durante a semana</div>
+            <div class="opt" data-v="fins de semana"><span class="mark"></span>Fins de semana</div>
+            <div class="opt" data-v="ambos"><span class="mark"></span>Ambos</div>
+          </div>
+        </div>
+
+        <div class="step" data-flow="c" data-step="13">
+          <h2>COMO CONHECEU A KAPTURA?</h2>
+          <div class="options" data-single="origem">
+            <div class="opt" data-v="anuncio"><span class="mark"></span>Vi um anúncio</div>
+            <div class="opt" data-v="indicacao de creator"><span class="mark"></span>Indicação de outro creator</div>
+            <div class="opt" data-v="perfil da kaptura"><span class="mark"></span>Perfil da Kaptura no Instagram</div>
+            <div class="opt" data-v="hotel parceiro"><span class="mark"></span>Por um hotel parceiro</div>
+            <div class="opt" data-v="outro"><span class="mark"></span>Outro</div>
+          </div>
+        </div>
+
+        <div class="step" data-flow="c" data-step="14">
+          <h2>ÚLTIMO TAKE</h2>
+          <p class="hint">Pra fechar a candidatura, confirma os combinados:</p>
+          <div class="check-group">
+            <label class="check"><input type="checkbox" id="ckPermuta"><span>Entendo que a Kaptura funciona por <b>permuta com entregáveis definidos em contrato</b>, sem pagamento em dinheiro pelo hotel.</span></label>
+            <label class="check"><input type="checkbox" id="ckIdade"><span>Confirmo que tenho <b>18 anos ou mais</b>.</span></label>
+            <label class="check"><input type="checkbox" id="ckLgpd"><span>Autorizo o uso dos meus dados para o processo de curadoria e contato da Kaptura, conforme a <b>LGPD</b>. Nada de spam.</span></label>
+          </div>
+        </div>
+
+        <!-- ========== FLUXO HOSPEDAGEM ========== -->
+        <div class="step" data-flow="h" data-step="1">
+          <h2>NOME DA HOSPEDAGEM</h2>
+          <p class="hint">Como aparece pro hóspede.</p>
+          <input type="text" id="hNome" placeholder="Ex: Pousada Mar Alto" autocomplete="organization">
+        </div>
+
+        <div class="step" data-flow="h" data-step="2">
+          <h2>ONDE ELA FICA?</h2>
+          <p class="hint">Cidade e estado.</p>
+          <input type="text" id="hCidade" placeholder="Cidade/UF">
+        </div>
+
+        <div class="step" data-flow="h" data-step="3">
+          <h2>TIPO DE HOSPEDAGEM</h2>
+          <div class="options" data-single="hTipo">
+            <div class="opt" data-v="pousada"><span class="mark"></span>Pousada</div>
+            <div class="opt" data-v="hotel"><span class="mark"></span>Hotel</div>
+            <div class="opt" data-v="resort"><span class="mark"></span>Resort</div>
+            <div class="opt" data-v="apart-hotel"><span class="mark"></span>Apart-hotel / flat</div>
+            <div class="opt" data-v="chales/cabanas"><span class="mark"></span>Chalés / cabanas</div>
+            <div class="opt" data-v="outro"><span class="mark"></span>Outro</div>
+          </div>
+        </div>
+
+        <div class="step" data-flow="h" data-step="4">
+          <h2>QUANTAS UNIDADES (UHs)?</h2>
+          <p class="hint">Quartos, suítes, chalés ou casas.</p>
+          <div class="options" data-single="hUhs">
+            <div class="opt" data-v="ate 10"><span class="mark"></span>Até 10</div>
+            <div class="opt" data-v="11 a 30"><span class="mark"></span>11 a 30</div>
+            <div class="opt" data-v="31 a 60"><span class="mark"></span>31 a 60</div>
+            <div class="opt" data-v="61 a 100"><span class="mark"></span>61 a 100</div>
+            <div class="opt" data-v="acima de 100"><span class="mark"></span>Acima de 100</div>
+          </div>
+        </div>
+
+        <div class="step" data-flow="h" data-step="5">
+          <h2>@ DA HOSPEDAGEM</h2>
+          <p class="hint">O perfil oficial no Instagram.</p>
+          <input type="text" id="hInsta" placeholder="@suahospedagem" autocomplete="off">
+        </div>
+
+        <div class="step" data-flow="h" data-step="6">
+          <h2>QUEM É VOCÊ NA OPERAÇÃO?</h2>
+          <p class="hint">Nome e cargo, pra gente falar com a pessoa certa.</p>
+          <input type="text" id="hResp" placeholder="Ex: Maria Souza · proprietária">
+        </div>
+
+        <div class="step" data-flow="h" data-step="7">
+          <h2>SEU WHATSAPP</h2>
+          <p class="hint">Com DDD. É por onde nosso time entra em contato.</p>
+          <input type="tel" id="hWhats" placeholder="(12) 99999-9999" inputmode="tel">
+        </div>
+
+        <div class="step" data-flow="h" data-step="8">
+          <h2>SEU MELHOR E-MAIL</h2>
+          <input type="email" id="hEmail" placeholder="voce@suahospedagem.com.br" autocomplete="email">
+        </div>
+
+        <div class="step" data-flow="h" data-step="9">
+          <h2>O QUE MAIS TE INTERESSA?</h2>
+          <p class="hint">Marque tudo que se aplica.</p>
+          <div class="chips" id="hInteresses">
+            <span class="chip" data-v="Conteúdo profissional (fotos e vídeos)">Conteúdo profissional</span>
+            <span class="chip" data-v="Alcance e divulgação">Alcance e divulgação</span>
+            <span class="chip" data-v="Criativos para anúncios">Criativos para anúncios</span>
+            <span class="chip" data-v="Tudo isso">Tudo isso</span>
+          </div>
+        </div>
+
+        <div class="step" data-flow="h" data-step="10">
+          <h2>ÚLTIMO TAKE</h2>
+          <p class="hint">Pra fechar, confirma os combinados:</p>
+          <div class="check-group">
+            <label class="check"><input type="checkbox" id="ckPermutaH"><span>Entendo que o modelo da Kaptura é <b>permuta</b>: hospedagem em troca de conteúdo, com <b>entregáveis definidos em contrato</b>.</span></label>
+            <label class="check"><input type="checkbox" id="ckLgpdH"><span>Autorizo o uso dos meus dados para contato do time da Kaptura, conforme a <b>LGPD</b>. Nada de spam.</span></label>
+          </div>
+        </div>
+
+        <div class="error" id="err">Preenche esse campo pra seguir.</div>
+
+        <div class="nav">
+          <button type="button" class="btn btn-back" id="btnBack"><span>Voltar</span></button>
+          <button type="button" class="btn btn-next" id="btnNext"><span>Próximo take →</span></button>
+        </div>
+      </form>
+    </div>
 
     <div class="success" id="success">
-      <div class="big">CANDIDATURA<br><span class="cy">CAPTURADA.</span></div>
-      <p>Sua candidatura entrou na curadoria. A resposta chega no seu e-mail em até <b>7 dias úteis</b>. Enquanto isso, segue a Kaptura e fica de olho nos stories.</p>
-      <div class="tarja-ok">SEM SORTEIO ⁄ CURADORIA</div>
+      <div class="big" id="successTitle">CANDIDATURA<br><span class="cy">CAPTURADA.</span></div>
+      <p id="successMsg">Sua candidatura entrou na curadoria. A resposta chega no seu e-mail em até <b>7 dias úteis</b>. Enquanto isso, segue a Kaptura e fica de olho nos stories.</p>
+      <div class="tarja-ok" id="successTag">SEM SORTEIO ⁄ CURADORIA</div>
     </div>
   </div>
 </main>
@@ -691,29 +811,52 @@ footer .fr{font-size:11px;letter-spacing:.1em;color:#9BB4BE;font-weight:500;}
 
 <script>
 const WEBHOOK_URL = "COLOQUE_AQUI_A_URL_DO_WEBHOOK_N8N";
-const TOTAL = 15;
+const TOTAIS = { c: 14, h: 10 };
+let flow = null;
 let current = 1;
-const data = { nichos: [], regioes: [] };
+const data = { nichos: [], regioes: [], hInteresses: [] };
 
 const bar = document.getElementById("bar");
 const takeLabel = document.getElementById("takeLabel");
 const err = document.getElementById("err");
 const btnBack = document.getElementById("btnBack");
 const btnNext = document.getElementById("btnNext");
+const fork = document.getElementById("fork");
+const formArea = document.getElementById("formArea");
 
 function pad(n){ return String(n).padStart(2,"0"); }
 
-function render(){
-  document.querySelectorAll(".step").forEach(s=>{
-    s.classList.toggle("active", Number(s.dataset.step)===current);
-  });
-  takeLabel.textContent = "TAKE " + pad(current) + " ⁄ " + TOTAL;
-  bar.style.width = ((current-1)/TOTAL*100) + "%";
-  btnBack.style.visibility = current===1 ? "hidden" : "visible";
-  btnNext.className = current===TOTAL ? "btn btn-submit" : "btn btn-next";
-  btnNext.innerHTML = current===TOTAL ? "<span>Enviar candidatura</span>" : "<span>Próximo take →</span>";
+function showFork(){
+  flow = null;
+  fork.style.display = "block";
+  formArea.style.display = "none";
   err.classList.remove("show");
-  const firstInput = document.querySelector('.step[data-step="'+current+'"] input[type=text],.step[data-step="'+current+'"] input[type=email],.step[data-step="'+current+'"] input[type=tel],.step[data-step="'+current+'"] input[type=url]');
+}
+
+function startFlow(f){
+  flow = f;
+  current = 1;
+  fork.style.display = "none";
+  formArea.style.display = "block";
+  render();
+}
+
+document.querySelectorAll(".fork-btn").forEach(b=>{
+  b.addEventListener("click", ()=> startFlow(b.dataset.flow));
+});
+
+function render(){
+  const total = TOTAIS[flow];
+  document.querySelectorAll(".step").forEach(s=>{
+    s.classList.toggle("active", s.dataset.flow===flow && Number(s.dataset.step)===current);
+  });
+  takeLabel.textContent = "TAKE " + pad(current) + " ⁄ " + total;
+  bar.style.width = ((current-1)/total*100) + "%";
+  btnNext.className = current===total ? "btn btn-submit" : "btn btn-next";
+  btnNext.innerHTML = current===total ? "<span>Enviar</span>" : "<span>Próximo take →</span>";
+  err.classList.remove("show");
+  const sel = '.step[data-flow="'+flow+'"][data-step="'+current+'"]';
+  const firstInput = document.querySelector(sel+' input[type=text],'+sel+' input[type=email],'+sel+' input[type=tel]');
   if(firstInput) firstInput.focus();
   document.getElementById("vf").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
@@ -724,8 +867,7 @@ function fail(msg){
   return false;
 }
 
-function validate(){
-  err.classList.remove("show");
+function validateCreator(){
   switch(current){
     case 1:{
       let v = document.getElementById("handle").value.trim();
@@ -761,17 +903,12 @@ function validate(){
     }
     case 7: return data.seguidores ? true : fail("Escolhe uma faixa de seguidores.");
     case 8: return data.views ? true : fail("Escolhe uma faixa de views.");
-    case 9:{
-      const v = document.getElementById("link").value.trim();
-      if(!/^https?:\/\/.+\..+/.test(v)) return fail("Cola um link completo, começando com https://");
-      data.melhor_conteudo = v; return true;
-    }
-    case 10: return data.companhia ? true : fail("Escolhe uma opção.");
-    case 11: return data.experiencia ? true : fail("Escolhe uma opção.");
-    case 12: return data.regioes.length>0 ? true : fail("Marca pelo menos uma região.");
-    case 13: return data.agenda ? true : fail("Escolhe uma opção.");
-    case 14: return data.origem ? true : fail("Escolhe uma opção.");
-    case 15:{
+    case 9: return data.companhia ? true : fail("Escolhe uma opção.");
+    case 10: return data.experiencia ? true : fail("Escolhe uma opção.");
+    case 11: return data.regioes.length>0 ? true : fail("Marca pelo menos uma opção.");
+    case 12: return data.agenda ? true : fail("Escolhe uma opção.");
+    case 13: return data.origem ? true : fail("Escolhe uma opção.");
+    case 14:{
       const ok = document.getElementById("ckPermuta").checked
         && document.getElementById("ckIdade").checked
         && document.getElementById("ckLgpd").checked;
@@ -781,20 +918,68 @@ function validate(){
   return true;
 }
 
-document.querySelectorAll("#nichos .chip").forEach(c=>{
-  c.addEventListener("click",()=>{
-    c.classList.toggle("selected");
-    const v = c.dataset.v;
-    data.nichos = data.nichos.includes(v) ? data.nichos.filter(x=>x!==v) : [...data.nichos, v];
+function validateHosp(){
+  switch(current){
+    case 1:{
+      const v = document.getElementById("hNome").value.trim();
+      if(v.length < 2) return fail("Escreve o nome da hospedagem.");
+      data.hNome = v; return true;
+    }
+    case 2:{
+      const v = document.getElementById("hCidade").value.trim();
+      if(v.length < 3) return fail("Escreve a cidade e UF.");
+      data.hCidade = v; return true;
+    }
+    case 3: return data.hTipo ? true : fail("Escolhe o tipo de hospedagem.");
+    case 4: return data.hUhs ? true : fail("Escolhe uma faixa de UHs.");
+    case 5:{
+      let v = document.getElementById("hInsta").value.trim();
+      if(!v) return fail("Cola o @ da hospedagem.");
+      if(!v.startsWith("@")) v = "@"+v;
+      data.hInsta = v; return true;
+    }
+    case 6:{
+      const v = document.getElementById("hResp").value.trim();
+      if(v.length < 3) return fail("Escreve seu nome e cargo.");
+      data.hResp = v; return true;
+    }
+    case 7:{
+      const v = document.getElementById("hWhats").value.replace(/\D/g,"");
+      if(v.length < 10 || v.length > 13) return fail("Confere o WhatsApp com DDD.");
+      data.hWhats = v; return true;
+    }
+    case 8:{
+      const v = document.getElementById("hEmail").value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return fail("Esse e-mail não parece válido.");
+      data.hEmail = v; return true;
+    }
+    case 9: return data.hInteresses.length>0 ? true : fail("Marca pelo menos um interesse.");
+    case 10:{
+      const ok = document.getElementById("ckPermutaH").checked && document.getElementById("ckLgpdH").checked;
+      return ok ? true : fail("Precisa confirmar os dois combinados pra enviar.");
+    }
+  }
+  return true;
+}
+
+function validate(){
+  err.classList.remove("show");
+  return flow==="c" ? validateCreator() : validateHosp();
+}
+
+function bindChips(containerId, key){
+  document.querySelectorAll("#"+containerId+" .chip").forEach(c=>{
+    c.addEventListener("click",()=>{
+      c.classList.toggle("selected");
+      const v = c.dataset.v;
+      data[key] = data[key].includes(v) ? data[key].filter(x=>x!==v) : [...data[key], v];
+      err.classList.remove("show");
+    });
   });
-});
-document.querySelectorAll("#regioes .chip").forEach(c=>{
-  c.addEventListener("click",()=>{
-    c.classList.toggle("selected");
-    const v = c.dataset.v;
-    data.regioes = data.regioes.includes(v) ? data.regioes.filter(x=>x!==v) : [...data.regioes, v];
-  });
-});
+}
+bindChips("nichos","nichos");
+bindChips("regioes","regioes");
+bindChips("hInteresses","hInteresses");
 
 document.querySelectorAll("[data-single]").forEach(group=>{
   const key = group.dataset.single;
@@ -808,21 +993,25 @@ document.querySelectorAll("[data-single]").forEach(group=>{
   });
 });
 
-const whats = document.getElementById("whats");
-whats.addEventListener("input",()=>{
-  let v = whats.value.replace(/\D/g,"").slice(0,11);
-  if(v.length > 6) v = "("+v.slice(0,2)+") "+v.slice(2,7)+"-"+v.slice(7);
-  else if(v.length > 2) v = "("+v.slice(0,2)+") "+v.slice(2);
-  whats.value = v;
-});
+function maskPhone(el){
+  el.addEventListener("input",()=>{
+    let v = el.value.replace(/\D/g,"").slice(0,11);
+    if(v.length > 6) v = "("+v.slice(0,2)+") "+v.slice(2,7)+"-"+v.slice(7);
+    else if(v.length > 2) v = "("+v.slice(0,2)+") "+v.slice(2);
+    el.value = v;
+  });
+}
+maskPhone(document.getElementById("whats"));
+maskPhone(document.getElementById("hWhats"));
 
 btnNext.addEventListener("click",()=>{
   if(!validate()) return;
-  if(current === TOTAL){ submit(); return; }
+  if(current === TOTAIS[flow]){ submit(); return; }
   current++; render();
 });
 btnBack.addEventListener("click",()=>{
   if(current>1){ current--; render(); }
+  else { showFork(); }
 });
 document.getElementById("form").addEventListener("keydown",e=>{
   if(e.key==="Enter"){ e.preventDefault(); btnNext.click(); }
@@ -831,38 +1020,57 @@ document.getElementById("form").addEventListener("keydown",e=>{
 async function submit(){
   btnNext.disabled = true;
   btnNext.innerHTML = "<span>Enviando…</span>";
-  const payload = {
-    evento: "kaptura_candidatura",
-    versao: "v1",
-    timestamp: new Date().toISOString(),
-    origem_pagina: window.location.href,
-    candidato: {
-      instagram: data.instagram,
-      nome: data.nome,
-      email: data.email,
-      whatsapp: data.whatsapp,
-      cidade: data.cidade
-    },
-    perfil: {
-      nichos: data.nichos,
-      nicho_outro: data.nicho_outro || null,
-      faixa_seguidores: data.seguidores,
-      faixa_views_reels: data.views,
-      melhor_conteudo: data.melhor_conteudo,
-      companhia_viagem: data.companhia,
-      experiencia_permuta: data.experiencia
-    },
-    logistica: {
-      regioes: data.regioes,
-      agenda: data.agenda
-    },
-    marketing: { origem: data.origem },
-    consentimentos: {
-      permuta_contratada: true,
-      maior_18: true,
-      lgpd: true
-    }
-  };
+  let payload;
+  if(flow==="c"){
+    payload = {
+      evento: "kaptura_candidatura_creator",
+      versao: "v2",
+      timestamp: new Date().toISOString(),
+      origem_pagina: window.location.href,
+      candidato: {
+        instagram: data.instagram,
+        nome: data.nome,
+        email: data.email,
+        whatsapp: data.whatsapp,
+        cidade: data.cidade
+      },
+      perfil: {
+        nichos: data.nichos,
+        nicho_outro: data.nicho_outro || null,
+        faixa_seguidores: data.seguidores,
+        faixa_views_reels: data.views,
+        companhia_viagem: data.companhia,
+        experiencia_permuta: data.experiencia
+      },
+      logistica: {
+        alcance: data.regioes,
+        agenda: data.agenda
+      },
+      marketing: { origem: data.origem },
+      consentimentos: { permuta_contratada: true, maior_18: true, lgpd: true }
+    };
+  } else {
+    payload = {
+      evento: "kaptura_lead_hospedagem",
+      versao: "v2",
+      timestamp: new Date().toISOString(),
+      origem_pagina: window.location.href,
+      hospedagem: {
+        nome: data.hNome,
+        cidade: data.hCidade,
+        tipo: data.hTipo,
+        faixa_uhs: data.hUhs,
+        instagram: data.hInsta
+      },
+      contato: {
+        responsavel: data.hResp,
+        whatsapp: data.hWhats,
+        email: data.hEmail
+      },
+      interesses: data.hInteresses,
+      consentimentos: { permuta_contratada: true, lgpd: true }
+    };
+  }
   try{
     if(WEBHOOK_URL.startsWith("http")){
       await fetch(WEBHOOK_URL,{
@@ -876,10 +1084,14 @@ async function submit(){
   }catch(e){
     console.error("Falha no envio ao webhook:", e);
   }
-  document.getElementById("form").style.display = "none";
-  document.querySelector(".take").style.display = "none";
-  document.querySelector(".progress").style.display = "none";
-  document.getElementById("success").classList.add("show");
+  formArea.style.display = "none";
+  const success = document.getElementById("success");
+  if(flow==="h"){
+    document.getElementById("successTitle").innerHTML = 'HOSPEDAGEM<br><span class="cy">CAPTURADA.</span>';
+    document.getElementById("successMsg").innerHTML = 'Recebemos seus dados. Nosso time entra em contato em até <b>2 dias úteis</b> pra mostrar como a rede funciona pra sua hospedagem.';
+    document.getElementById("successTag").textContent = 'A REDE DE CREATORS DA HOTELARIA';
+  }
+  success.classList.add("show");
   bar.style.width = "100%";
 }
 
@@ -887,8 +1099,6 @@ const ESTADOS = ["SÃO PAULO","MINAS GERAIS","RIO DE JANEIRO","BAHIA","PARANÁ",
 const mq = document.getElementById("mq");
 const faixa = ESTADOS.map((uf,i)=>'<span class="marquee-item'+(i%2?' cy':'')+'">'+uf+'</span>').join("");
 mq.innerHTML = faixa + faixa;
-
-render();
 </script>
 </body>
 </html>
