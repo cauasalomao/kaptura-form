@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaptura Creators ⁄ Candidatura</title>
+<meta name="description" content="Candidate-se à Kaptura: rede curada de creators e hotéis do Brasil inteiro. Permuta com contrato. Sem sorteio, curadoria.">
+<link rel="canonical" href="https://kapturacreators.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kaptura Creators ⁄ Você cria. O Brasil te hospeda.">
+<meta property="og:description" content="Rede curada de creators e hotéis do Brasil inteiro. Permuta com contrato. Sem sorteio, curadoria. Candidate-se.">
+<meta property="og:url" content="https://kapturacreators.com.br/">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFD43B">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ciano:#20CBFB;
+  --amarelo:#FFD43B;
+  --tinta:#06344A;
+  --offwhite:#FBFAF7;
+  --agua-clara:#E3F7FE;
+  --sol-claro:#FFF4CC;
+  --skew:-10deg;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Work Sans',sans-serif;
+  background:var(--amarelo);
+  color:var(--tinta);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow-x:hidden;
+}
+.display{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  transform:skewX(var(--skew));
+  display:inline-block;
+  letter-spacing:.02em;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 24px;
+  position:relative;
+  z-index:5;
+}
+.logo{
+  font-family:'Anton',sans-serif;
+  font-size:22px;
+  letter-spacing:.14em;
+  color:var(--tinta);
+  transform:skewX(var(--skew));
+  position:relative;
+  z-index:6;
+}
+.logo .u{color:var(--offwhite);}
+.logo small{
+  display:block;
+  font-family:'Work Sans',sans-serif;
+  font-weight:600;
+  font-size:9px;
+  letter-spacing:.5em;
+  transform:none;
+  margin-top:2px;
+}
+.badge-rec{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--tinta);
+  color:var(--amarelo);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.18em;
+  padding:8px 14px;
+  transform:skewX(var(--skew));
+  position:relative;
+  z-index:6;
+  white-space:nowrap;
+}
+.badge-rec span{transform:skewX(10deg);display:flex;align-items:center;gap:8px;}
+.rec-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--ciano);
+  animation:rec 1.2s infinite;
+}
+@keyframes rec{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){
+  .rec-dot{animation:none}
+  .marquee-track{animation:none !important}
+  *{transition:none !important}
+}
+
+.diagonal-top{
+  position:absolute;
+  top:0;right:-40px;
+  width:150px;height:220px;
+  background:var(--ciano);
+  transform:skewX(var(--skew));
+  z-index:1;
+}
+.diagonal-top::before{
+  content:"";
+  position:absolute;
+  left:-26px;top:0;
+  width:12px;height:100%;
+  background:var(--tinta);
+}
+
+main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:12px 24px 64px;
+  position:relative;
+  z-index:2;
+}
+
+.hero{
+  text-align:center;
+  max-width:640px;
+  margin:24px auto 36px;
+}
+.hero .tarja{
+  background:var(--tinta);
+  color:var(--amarelo);
+  padding:2px 12px;
+}
+.hero h1{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  transform:skewX(var(--skew));
+  font-size:clamp(30px,6.4vw,56px);
+  line-height:1.2;
+  color:var(--tinta);
+  padding:0 12px;
+}
+.hero .tarja{white-space:nowrap;display:inline-block;margin-top:8px;}
+.hero p{
+  margin-top:16px;
+  font-size:16px;
+  font-weight:500;
+  max-width:440px;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.55;
+}
+.hero p b{font-weight:700;}
+
+.viewfinder{
+  position:relative;
+  width:100%;
+  max-width:560px;
+  background:var(--offwhite);
+  padding:44px 36px 36px;
+  margin:0 auto;
+}
+.vf-corner{
+  position:absolute;
+  width:26px;height:26px;
+  border:0 solid var(--tinta);
+}
+.vf-corner.tl{top:-6px;left:-6px;border-top-width:5px;border-left-width:5px;}
+.vf-corner.tr{top:-6px;right:-6px;border-top-width:5px;border-right-width:5px;}
+.vf-corner.bl{bottom:-6px;left:-6px;border-bottom-width:5px;border-left-width:5px;}
+.vf-corner.br{bottom:-6px;right:-6px;border-bottom-width:5px;border-right-width:5px;}
+
+.take{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+.take .label{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  transform:skewX(var(--skew));
+  font-size:15px;
+  letter-spacing:.12em;
+  color:var(--tinta);
+}
+.take .rec-mini{
+  display:flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;letter-spacing:.2em;
+  color:var(--tinta);
+}
+.progress{
+  height:6px;
+  background:var(--sol-claro);
+  margin-bottom:30px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--ciano);
+  transition:width .35s ease;
+}
+
+.step{display:none;}
+.step.active{display:block;animation:enter .3s ease;}
+@keyframes enter{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+
+.step h2{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  transform:skewX(var(--skew));
+  font-size:clamp(22px,4vw,30px);
+  line-height:1.08;
+  margin-bottom:8px;
+}
+.step .hint{
+  font-size:14px;
+  color:#3E6A7D;
+  margin-bottom:22px;
+  line-height:1.5;
+}
+
+input[type=text],input[type=email],input[type=tel],input[type=url]{
+  width:100%;
+  border:3px solid var(--tinta);
+  background:#fff;
+  padding:16px 18px;
+  font-family:'Work Sans',sans-serif;
+  font-size:17px;
+  font-weight:500;
+  color:var(--tinta);
+  outline:none;
+}
+input:focus{border-color:var(--ciano);box-shadow:0 0 0 3px var(--agua-clara);}
+input::placeholder{color:#9BB4BE;font-weight:400;}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;}
+.chip{
+  border:3px solid var(--tinta);
+  background:#fff;
+  padding:11px 18px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  user-select:none;
+  color:var(--tinta);
+  transition:background .15s,color .15s;
+}
+.chip:hover{background:var(--sol-claro);}
+.chip.selected{background:var(--tinta);color:var(--amarelo);}
+.chip.selected.cy{background:var(--tinta);color:var(--ciano);}
+
+.options{display:flex;flex-direction:column;gap:10px;}
+.opt{
+  border:3px solid var(--tinta);
+  background:#fff;
+  padding:14px 18px;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  user-select:none;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  transition:background .15s,color .15s;
+}
+.opt:hover{background:var(--sol-claro);}
+.opt.selected{background:var(--tinta);color:var(--amarelo);}
+.opt .mark{
+  width:16px;height:16px;
+  border:3px solid currentColor;
+  flex-shrink:0;
+}
+.opt.selected .mark{background:var(--ciano);border-color:var(--ciano);}
+
+.check-group{display:flex;flex-direction:column;gap:14px;}
+.check{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  background:#fff;
+  border:3px solid var(--tinta);
+  padding:14px 16px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  line-height:1.5;
+}
+.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--tinta);flex-shrink:0;}
+
+.error{
+  display:none;
+  margin-top:12px;
+  font-size:13px;
+  font-weight:600;
+  color:#A32D2D;
+  background:#FCEBEB;
+  border-left:5px solid #A32D2D;
+  padding:8px 12px;
+}
+.error.show{display:block;}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:30px;
+  gap:12px;
+}
+.btn{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  font-size:16px;
+  letter-spacing:.1em;
+  border:none;
+  cursor:pointer;
+  padding:15px 30px;
+  transform:skewX(var(--skew));
+  transition:transform .12s;
+}
+.btn span{display:inline-block;transform:skewX(10deg);}
+.btn:active{transform:skewX(var(--skew)) scale(.97);}
+.btn-next{background:var(--tinta);color:var(--amarelo);}
+.btn-next:hover{background:#0A4560;}
+.btn-back{background:transparent;color:var(--tinta);border:3px solid var(--tinta);padding:12px 22px;}
+.btn-back:hover{background:var(--sol-claro);}
+.btn-submit{background:var(--ciano);color:var(--tinta);}
+.btn-submit:hover{background:#4AD6FC;}
+
+.success{
+  display:none;
+  text-align:center;
+  padding:20px 0;
+}
+.success.show{display:block;animation:enter .3s ease;}
+.success .big{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  transform:skewX(var(--skew));
+  font-size:clamp(30px,6vw,44px);
+  line-height:1;
+  display:inline-block;
+}
+.success .big .cy{color:#0A8CB8;}
+.success p{margin-top:16px;font-size:15px;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto;}
+.success .tarja-ok{
+  display:inline-block;
+  background:var(--ciano);
+  color:var(--tinta);
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.2em;
+  padding:8px 16px;
+  margin-top:22px;
+  transform:skewX(var(--skew));
+}
+
+.marquee{
+  background:var(--tinta);
+  overflow:hidden;
+  padding:12px 0;
+  position:relative;
+  z-index:2;
+}
+.marquee-track{
+  display:flex;
+  gap:32px;
+  white-space:nowrap;
+  animation:slide 80s linear infinite;
+  width:max-content;
+}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
+  font-size:15px;
+  letter-spacing:.12em;
+  color:var(--amarelo);
+  transform:skewX(var(--skew));
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+.marquee-item.cy{color:var(--ciano);}
+.marquee-item::after{
+  content:"";
+  width:22px;height:3px;
+  background:var(--ciano);
+  transform:skewX(-30deg);
+}
+
+.graves{
+  background:var(--tinta);
+  color:var(--offwhite);
+  padding:56px 24px;
+  position:relative;
+  overflow:hidden;
+}
+.graves .kptr{
+  position:absolute;
+  bottom:-30px;right:0;
+  font-family:'Anton',sans-serif;
+  font-size:180px;
+  line-height:1;
+  color:rgba(32,203,251,.08);
+  transform:skewX(var(--skew));
+  pointer-events:none;
+  user-select:none;
+}
+.graves-inner{
+  max-width:640px;
+  margin:0 auto;
+  display:flex;
+  gap:40px;
+  flex-wrap:wrap;
+  position:relative;
+}
+.stat .n{
+  font-family:'Anton',sans-serif;
+  font-size:34px;
+  transform:skewX(var(--skew));
+  display:inline-block;
+}
+.stat .n.am{color:var(--amarelo);}
+.stat .n.cy{color:var(--ciano);}
+.stat .l{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.2em;
+  color:#7FB8CC;
+  margin-top:4px;
+  text-transform:uppercase;
+}
+
+footer{
+  background:var(--offwhite);
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+footer .fl{
+  font-family:'Anton',sans-serif;
+  font-size:14px;
+  letter-spacing:.2em;
+  color:var(--tinta);
+  transform:skewX(var(--skew));
+}
+footer .fl .u{color:#E5B412;}
+footer .fr{font-size:11px;letter-spacing:.1em;color:#9BB4BE;font-weight:500;}
+
+@media(max-width:640px){
+  header{padding:16px;gap:10px;}
+  .logo{font-size:18px;}
+  .logo small{font-size:8px;letter-spacing:.4em;}
+  .badge-rec{font-size:9px;padding:7px 10px;letter-spacing:.12em;}
+  .diagonal-top{width:56px;height:110px;right:-28px;}
+  .hero{margin:14px auto 26px;}
+  .hero h1{padding:0 4px;}
+  .hero p{font-size:14px;padding:0 6px;}
+  .viewfinder{padding:34px 18px 26px;}
+  .step h2{font-size:20px;}
+  .nav{flex-wrap:wrap;}
+  .btn{font-size:14px;padding:13px 20px;}
+  .btn-back{padding:11px 16px;}
+  .btn-next,.btn-submit{flex:1;text-align:center;}
+  .marquee-item{font-size:13px;gap:22px;}
+  .marquee-track{gap:22px;}
+  .graves{padding:40px 20px;}
+  .graves-inner{gap:24px;justify-content:space-between;}
+  .stat .n{font-size:26px;}
+  .graves .kptr{font-size:96px;}
+  footer{justify-content:center;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">KAPT<span class="u">U</span>RA<small>CREATORS</small></div>
+  <div class="badge-rec"><span><span class="rec-dot"></span>CANDIDATURAS ABERTAS</span></div>
+  <div class="diagonal-top" aria-hidden="true"></div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>VOCÊ CRIA.<br>O BRASIL <span class="tarja">TE&nbsp;HOSPEDA.</span></h1>
+    <p>Rede curada de creators e hotéis do Brasil inteiro. Permuta com <b>contrato e entregáveis definidos</b>. Sem sorteio. Curadoria.</p>
+  </div>
+
+  <div class="viewfinder" id="vf">
+    <span class="vf-corner tl" aria-hidden="true"></span>
+    <span class="vf-corner tr" aria-hidden="true"></span>
+    <span class="vf-corner bl" aria-hidden="true"></span>
+    <span class="vf-corner br" aria-hidden="true"></span>
+
+    <div class="take">
+      <span class="label" id="takeLabel">TAKE 01 ⁄ 15</span>
+      <span class="rec-mini"><span class="rec-dot"></span>REC</span>
+    </div>
+    <div class="progress"><div class="progress-fill" id="bar"></div></div>
+
+    <form id="form" novalidate>
+
+      <div class="step active" data-step="1">
+        <h2>QUAL SEU @?</h2>
+        <p class="hint">Seu perfil principal no Instagram.</p>
+        <input type="text" id="handle" placeholder="@seuperfil" autocomplete="off">
+      </div>
+
+      <div class="step" data-step="2">
+        <h2>SEU NOME COMPLETO</h2>
+        <p class="hint">Como aparece no seu documento. Vai pro contrato de permuta.</p>
+        <input type="text" id="nome" placeholder="Nome e sobrenome" autocomplete="name">
+      </div>
+
+      <div class="step" data-step="3">
+        <h2>SEU MELHOR E-MAIL</h2>
+        <p class="hint">É por aqui que chega o resultado da curadoria.</p>
+        <input type="email" id="email" placeholder="voce@email.com" autocomplete="email">
+      </div>
+
+      <div class="step" data-step="4">
+        <h2>SEU WHATSAPP</h2>
+        <p class="hint">Com DDD. Usamos só pra alinhar estadias aprovadas.</p>
+        <input type="tel" id="whats" placeholder="(12) 99999-9999" autocomplete="tel" inputmode="tel">
+      </div>
+
+      <div class="step" data-step="5">
+        <h2>ONDE VOCÊ MORA?</h2>
+        <p class="hint">Cidade e estado. Ajuda no matching com hotéis perto de você.</p>
+        <input type="text" id="cidade" placeholder="Cidade/UF" autocomplete="address-level2">
+      </div>
+
+      <div class="step" data-step="6">
+        <h2>SOBRE O QUE FALA SEU PERFIL?</h2>
+        <p class="hint">Marque tudo que se aplica.</p>
+        <div class="chips" id="nichos">
+          <span class="chip" data-v="Viagem">✈️ Viagem</span>
+          <span class="chip" data-v="Gastronomia">🍽️ Gastronomia</span>
+          <span class="chip" data-v="Lifestyle">🌴 Lifestyle</span>
+          <span class="chip" data-v="Cuidado pessoal">🧖 Cuidado pessoal</span>
+          <span class="chip" data-v="Vida noturna">🌙 Vida noturna</span>
+          <span class="chip" data-v="Academia e fitness">💪 Academia</span>
+          <span class="chip" data-v="Moda">👗 Moda</span>
+          <span class="chip" data-v="Esportes">🏄 Esportes</span>
+          <span class="chip" data-v="Beleza">💄 Beleza</span>
+          <span class="chip" data-v="Família">👨‍👩‍👧 Família</span>
+        </div>
+        <input type="text" id="nichoOutro" placeholder="Outro tópico? Escreve aqui" style="margin-top:14px;">
+      </div>
+
+      <div class="step" data-step="7">
+        <h2>QUANTOS SEGUIDORES?</h2>
+        <p class="hint">No perfil que você indicou.</p>
+        <div class="options" data-single="seguidores">
+          <div class="opt" data-v="abaixo de 1.000"><span class="mark"></span>Abaixo de 1.000</div>
+          <div class="opt" data-v="1.000 a 5.000"><span class="mark"></span>1.000 a 5.000</div>
+          <div class="opt" data-v="5.000 a 10.000"><span class="mark"></span>5.000 a 10.000</div>
+          <div class="opt" data-v="10.000 a 25.000"><span class="mark"></span>10.000 a 25.000</div>
+          <div class="opt" data-v="acima de 25.000"><span class="mark"></span>Acima de 25.000</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="8">
+        <h2>MÉDIA DE VIEWS NOS SEUS REELS?</h2>
+        <p class="hint">Uma estimativa honesta dos últimos 30 dias.</p>
+        <div class="options" data-single="views">
+          <div class="opt" data-v="abaixo de 1.000"><span class="mark"></span>Abaixo de 1.000</div>
+          <div class="opt" data-v="1.000 a 5.000"><span class="mark"></span>1.000 a 5.000</div>
+          <div class="opt" data-v="5.000 a 20.000"><span class="mark"></span>5.000 a 20.000</div>
+          <div class="opt" data-v="20.000 a 100.000"><span class="mark"></span>20.000 a 100.000</div>
+          <div class="opt" data-v="acima de 100.000"><span class="mark"></span>Acima de 100.000</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="9">
+        <h2>SEU MELHOR CONTEÚDO</h2>
+        <p class="hint">Cola o link do post ou reel que é seu cartão de visita. Se tiver um de viagem ou hospedagem, melhor ainda.</p>
+        <input type="url" id="link" placeholder="https://instagram.com/..." inputmode="url">
+      </div>
+
+      <div class="step" data-step="10">
+        <h2>QUEM VIAJA COM VOCÊ?</h2>
+        <p class="hint">Formato mais comum das suas viagens de conteúdo.</p>
+        <div class="options" data-single="companhia">
+          <div class="opt" data-v="sozinho(a)"><span class="mark"></span>Sozinho(a)</div>
+          <div class="opt" data-v="casal"><span class="mark"></span>Em casal</div>
+          <div class="opt" data-v="familia"><span class="mark"></span>Com família</div>
+          <div class="opt" data-v="com fotografo/equipe"><span class="mark"></span>Com fotógrafo ou equipe</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="11">
+        <h2>JÁ FEZ PERMUTA OU PUBLI COM HOTEL?</h2>
+        <p class="hint">Sem problema se ainda não. É só pra calibrar a curadoria.</p>
+        <div class="options" data-single="experiencia">
+          <div class="opt" data-v="sim, varias vezes"><span class="mark"></span>Sim, várias vezes</div>
+          <div class="opt" data-v="sim, uma ou duas"><span class="mark"></span>Sim, uma ou duas vezes</div>
+          <div class="opt" data-v="ainda nao"><span class="mark"></span>Ainda não</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="12">
+        <h2>ATÉ ONDE VOCÊ VAI?</h2>
+        <p class="hint">Regiões que consegue visitar com facilidade. Marque todas.</p>
+        <div class="chips" id="regioes">
+          <span class="chip" data-v="Sudeste">Sudeste</span>
+          <span class="chip" data-v="Sul">Sul</span>
+          <span class="chip" data-v="Nordeste">Nordeste</span>
+          <span class="chip" data-v="Centro-Oeste">Centro-Oeste</span>
+          <span class="chip" data-v="Norte">Norte</span>
+          <span class="chip" data-v="Brasil inteiro">Brasil inteiro</span>
+        </div>
+      </div>
+
+      <div class="step" data-step="13">
+        <h2>SUA AGENDA</h2>
+        <p class="hint">Quando você normalmente consegue viajar.</p>
+        <div class="options" data-single="agenda">
+          <div class="opt" data-v="durante a semana"><span class="mark"></span>Durante a semana</div>
+          <div class="opt" data-v="fins de semana"><span class="mark"></span>Fins de semana</div>
+          <div class="opt" data-v="ambos"><span class="mark"></span>Ambos</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="14">
+        <h2>COMO CONHECEU A KAPTURA?</h2>
+        <div class="options" data-single="origem">
+          <div class="opt" data-v="anuncio"><span class="mark"></span>Vi um anúncio</div>
+          <div class="opt" data-v="indicacao de creator"><span class="mark"></span>Indicação de outro creator</div>
+          <div class="opt" data-v="perfil da kaptura"><span class="mark"></span>Perfil da Kaptura no Instagram</div>
+          <div class="opt" data-v="hotel parceiro"><span class="mark"></span>Por um hotel parceiro</div>
+          <div class="opt" data-v="outro"><span class="mark"></span>Outro</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="15">
+        <h2>ÚLTIMO TAKE</h2>
+        <p class="hint">Pra fechar a candidatura, confirma os combinados:</p>
+        <div class="check-group">
+          <label class="check"><input type="checkbox" id="ckPermuta"><span>Entendo que a Kaptura funciona por <b>permuta com entregáveis definidos em contrato</b>, sem pagamento em dinheiro pelo hotel.</span></label>
+          <label class="check"><input type="checkbox" id="ckIdade"><span>Confirmo que tenho <b>18 anos ou mais</b>.</span></label>
+          <label class="check"><input type="checkbox" id="ckLgpd"><span>Autorizo o uso dos meus dados para o processo de curadoria e contato da Kaptura, conforme a <b>LGPD</b>. Nada de spam.</span></label>
+        </div>
+      </div>
+
+      <div class="error" id="err">Preenche esse campo pra seguir.</div>
+
+      <div class="nav">
+        <button type="button" class="btn btn-back" id="btnBack" style="visibility:hidden;"><span>Voltar</span></button>
+        <button type="button" class="btn btn-next" id="btnNext"><span>Próximo take →</span></button>
+      </div>
+    </form>
+
+    <div class="success" id="success">
+      <div class="big">CANDIDATURA<br><span class="cy">CAPTURADA.</span></div>
+      <p>Sua candidatura entrou na curadoria. A resposta chega no seu e-mail em até <b>7 dias úteis</b>. Enquanto isso, segue a Kaptura e fica de olho nos stories.</p>
+      <div class="tarja-ok">SEM SORTEIO ⁄ CURADORIA</div>
+    </div>
+  </div>
+</main>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mq"></div>
+</div>
+
+<section class="graves">
+  <div class="kptr">KPTR</div>
+  <div class="graves-inner">
+    <div class="stat"><div class="n am">+40</div><div class="l">Hotéis na rede</div></div>
+    <div class="stat"><div class="n cy">100%</div><div class="l">Permuta com contrato</div></div>
+    <div class="stat"><div class="n am">ZERO</div><div class="l">Taxa pro creator</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">KAPT<span class="u">U</span>RA</div>
+  <div class="fr">um programa Komplexa · CNPJ 63.097.480/0001-70</div>
+</footer>
+
+<script>
+const WEBHOOK_URL = "COLOQUE_AQUI_A_URL_DO_WEBHOOK_N8N";
+const TOTAL = 15;
+let current = 1;
+const data = { nichos: [], regioes: [] };
+
+const bar = document.getElementById("bar");
+const takeLabel = document.getElementById("takeLabel");
+const err = document.getElementById("err");
+const btnBack = document.getElementById("btnBack");
+const btnNext = document.getElementById("btnNext");
+
+function pad(n){ return String(n).padStart(2,"0"); }
+
+function render(){
+  document.querySelectorAll(".step").forEach(s=>{
+    s.classList.toggle("active", Number(s.dataset.step)===current);
+  });
+  takeLabel.textContent = "TAKE " + pad(current) + " ⁄ " + TOTAL;
+  bar.style.width = ((current-1)/TOTAL*100) + "%";
+  btnBack.style.visibility = current===1 ? "hidden" : "visible";
+  btnNext.className = current===TOTAL ? "btn btn-submit" : "btn btn-next";
+  btnNext.innerHTML = current===TOTAL ? "<span>Enviar candidatura</span>" : "<span>Próximo take →</span>";
+  err.classList.remove("show");
+  const firstInput = document.querySelector('.step[data-step="'+current+'"] input[type=text],.step[data-step="'+current+'"] input[type=email],.step[data-step="'+current+'"] input[type=tel],.step[data-step="'+current+'"] input[type=url]');
+  if(firstInput) firstInput.focus();
+  document.getElementById("vf").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function fail(msg){
+  err.textContent = msg;
+  err.classList.add("show");
+  return false;
+}
+
+function validate(){
+  err.classList.remove("show");
+  switch(current){
+    case 1:{
+      let v = document.getElementById("handle").value.trim();
+      if(!v) return fail("Cola seu @ pra seguir.");
+      if(!v.startsWith("@")) v = "@"+v;
+      if(v.length < 3) return fail("Esse @ parece curto demais.");
+      data.instagram = v; return true;
+    }
+    case 2:{
+      const v = document.getElementById("nome").value.trim();
+      if(v.split(" ").filter(Boolean).length < 2) return fail("Precisa do nome completo, com sobrenome.");
+      data.nome = v; return true;
+    }
+    case 3:{
+      const v = document.getElementById("email").value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return fail("Esse e-mail não parece válido.");
+      data.email = v; return true;
+    }
+    case 4:{
+      const v = document.getElementById("whats").value.replace(/\D/g,"");
+      if(v.length < 10 || v.length > 13) return fail("Confere o WhatsApp com DDD.");
+      data.whatsapp = v; return true;
+    }
+    case 5:{
+      const v = document.getElementById("cidade").value.trim();
+      if(v.length < 3) return fail("Escreve sua cidade e UF.");
+      data.cidade = v; return true;
+    }
+    case 6:{
+      const outro = document.getElementById("nichoOutro").value.trim();
+      if(data.nichos.length===0 && !outro) return fail("Marca pelo menos um tópico.");
+      data.nicho_outro = outro; return true;
+    }
+    case 7: return data.seguidores ? true : fail("Escolhe uma faixa de seguidores.");
+    case 8: return data.views ? true : fail("Escolhe uma faixa de views.");
+    case 9:{
+      const v = document.getElementById("link").value.trim();
+      if(!/^https?:\/\/.+\..+/.test(v)) return fail("Cola um link completo, começando com https://");
+      data.melhor_conteudo = v; return true;
+    }
+    case 10: return data.companhia ? true : fail("Escolhe uma opção.");
+    case 11: return data.experiencia ? true : fail("Escolhe uma opção.");
+    case 12: return data.regioes.length>0 ? true : fail("Marca pelo menos uma região.");
+    case 13: return data.agenda ? true : fail("Escolhe uma opção.");
+    case 14: return data.origem ? true : fail("Escolhe uma opção.");
+    case 15:{
+      const ok = document.getElementById("ckPermuta").checked
+        && document.getElementById("ckIdade").checked
+        && document.getElementById("ckLgpd").checked;
+      return ok ? true : fail("Precisa confirmar os três combinados pra enviar.");
+    }
+  }
+  return true;
+}
+
+document.querySelectorAll("#nichos .chip").forEach(c=>{
+  c.addEventListener("click",()=>{
+    c.classList.toggle("selected");
+    const v = c.dataset.v;
+    data.nichos = data.nichos.includes(v) ? data.nichos.filter(x=>x!==v) : [...data.nichos, v];
+  });
+});
+document.querySelectorAll("#regioes .chip").forEach(c=>{
+  c.addEventListener("click",()=>{
+    c.classList.toggle("selected");
+    const v = c.dataset.v;
+    data.regioes = data.regioes.includes(v) ? data.regioes.filter(x=>x!==v) : [...data.regioes, v];
+  });
+});
+
+document.querySelectorAll("[data-single]").forEach(group=>{
+  const key = group.dataset.single;
+  group.querySelectorAll(".opt").forEach(o=>{
+    o.addEventListener("click",()=>{
+      group.querySelectorAll(".opt").forEach(x=>x.classList.remove("selected"));
+      o.classList.add("selected");
+      data[key] = o.dataset.v;
+      err.classList.remove("show");
+    });
+  });
+});
+
+const whats = document.getElementById("whats");
+whats.addEventListener("input",()=>{
+  let v = whats.value.replace(/\D/g,"").slice(0,11);
+  if(v.length > 6) v = "("+v.slice(0,2)+") "+v.slice(2,7)+"-"+v.slice(7);
+  else if(v.length > 2) v = "("+v.slice(0,2)+") "+v.slice(2);
+  whats.value = v;
+});
+
+btnNext.addEventListener("click",()=>{
+  if(!validate()) return;
+  if(current === TOTAL){ submit(); return; }
+  current++; render();
+});
+btnBack.addEventListener("click",()=>{
+  if(current>1){ current--; render(); }
+});
+document.getElementById("form").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){ e.preventDefault(); btnNext.click(); }
+});
+
+async function submit(){
+  btnNext.disabled = true;
+  btnNext.innerHTML = "<span>Enviando…</span>";
+  const payload = {
+    evento: "kaptura_candidatura",
+    versao: "v1",
+    timestamp: new Date().toISOString(),
+    origem_pagina: window.location.href,
+    candidato: {
+      instagram: data.instagram,
+      nome: data.nome,
+      email: data.email,
+      whatsapp: data.whatsapp,
+      cidade: data.cidade
+    },
+    perfil: {
+      nichos: data.nichos,
+      nicho_outro: data.nicho_outro || null,
+      faixa_seguidores: data.seguidores,
+      faixa_views_reels: data.views,
+      melhor_conteudo: data.melhor_conteudo,
+      companhia_viagem: data.companhia,
+      experiencia_permuta: data.experiencia
+    },
+    logistica: {
+      regioes: data.regioes,
+      agenda: data.agenda
+    },
+    marketing: { origem: data.origem },
+    consentimentos: {
+      permuta_contratada: true,
+      maior_18: true,
+      lgpd: true
+    }
+  };
+  try{
+    if(WEBHOOK_URL.startsWith("http")){
+      await fetch(WEBHOOK_URL,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+    } else {
+      console.log("Payload Kaptura (configure WEBHOOK_URL):", payload);
+    }
+  }catch(e){
+    console.error("Falha no envio ao webhook:", e);
+  }
+  document.getElementById("form").style.display = "none";
+  document.querySelector(".take").style.display = "none";
+  document.querySelector(".progress").style.display = "none";
+  document.getElementById("success").classList.add("show");
+  bar.style.width = "100%";
+}
+
+const ESTADOS = ["SÃO PAULO","MINAS GERAIS","RIO DE JANEIRO","BAHIA","PARANÁ","RIO GRANDE DO SUL","SANTA CATARINA","PERNAMBUCO","CEARÁ","GOIÁS","ESPÍRITO SANTO","DISTRITO FEDERAL","MATO GROSSO","MATO GROSSO DO SUL","PARÁ","AMAZONAS","MARANHÃO","PARAÍBA","RIO GRANDE DO NORTE","ALAGOAS","SERGIPE","PIAUÍ","TOCANTINS","RONDÔNIA","ACRE","RORAIMA","AMAPÁ"];
+const mq = document.getElementById("mq");
+const faixa = ESTADOS.map((uf,i)=>'<span class="marquee-item'+(i%2?' cy':'')+'">'+uf+'</span>').join("");
+mq.innerHTML = faixa + faixa;
+
+render();
+</script>
+</body>
+</html>
