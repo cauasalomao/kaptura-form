@@ -14,7 +14,7 @@ assinar.html
                 ├─ honeypot: descarta bot, responde 200 sem gravar
                 ├─ valida os dados no servidor (dígito verificador incluso)
                 ├─ extrai o IP real e calcula SHA-256 do corpo cru
-                ├─ INSERT em kaptura_aceites (como kaptura_n8n)  ← crítico
+                ├─ INSERT em kaptura_aceites (como kaptura_app)  ← crítico
                 ├─ Resend: e-mail do cliente + PDF anexado
                 └─ Resend: backup do JSON → caixa interna
    └─ redirect → Hypercash (assinatura R$97/mês)
@@ -37,7 +37,7 @@ ser desfeito porque o Resend caiu — a falha vai pro log e o time reenvia.
 | `assinar.html` | Página de adesão: formulário, clickwrap, honeypot, envio do aceite |
 | `index.html` | Página de candidatura, já existente — **não alterada** |
 | `contrato-kaptura-hospedagem-v1.pdf` | Contrato anexado no e-mail e linkado no checkbox — **ainda não está no repo** |
-| `supabase/migrations/0001_role_kaptura_n8n.sql` | Cria o usuário `kaptura_n8n` |
+| `supabase/migrations/0001_role_kaptura_app.sql` | Cria o usuário `kaptura_app` |
 | `supabase/migrations/0002_kaptura_aceites.sql` | Tabelas, índices, RLS e grants append-only |
 | `supabase/testes/verificar_append_only.sql` | Fase 6, teste 6 |
 | `supabase/functions/kaptura-aceite/index.ts` | **Edge Function** que registra o aceite e dispara os e-mails |
@@ -61,13 +61,13 @@ Nada disso vive no código — são valores que só o Cauã tem.
 > aceitou por contrato. Ao mexer no plano, conferir os três: página, Anexo II e
 > valor final do checkout.
 | `WEBHOOK_ACEITE` | `assinar.html` | **Placeholder** — `https://<ref>.supabase.co/functions/v1/kaptura-aceite`. O `<ref>` está em Project Settings → General → Reference ID |
-| `KAPTURA_DB_URL` | Secrets da Edge Function | Connection string do `kaptura_n8n` |
+| `KAPTURA_DB_URL` | Secrets da Edge Function | Connection string do `kaptura_app` |
 | `ACEITES_EMAIL_INTERNO` | Secrets da Edge Function | Caixa que recebe o backup do JSON |
 | `WHATSAPP_SUPORTE` | `assinar.html` | **Placeholder** — link `wa.me` usado na mensagem de erro |
 | `VERSAO_CONTRATO` | `assinar.html` | `v1.0-ago2026` |
 | PDF do contrato | Raiz do repo | **Falta subir** |
 | Destinatário do backup | nó 4 do workflow | **Confirmar endereço** (`CONFIRMAR_COM_CAUA@…`) |
-| Connection string `kaptura_n8n` | Credenciais n8n | Criar na Fase 1 |
+| Connection string `kaptura_app` | Credenciais n8n | Criar na Fase 1 |
 | `RESEND_API_KEY` | Credenciais n8n | Criar na Fase 3 |
 | OAuth Gmail | Credenciais n8n | Conta Workspace existente |
 
@@ -91,7 +91,7 @@ A página empurra três eventos no `dataLayer`, para acompanhar o funil de ades�
 
 Rodar no SQL Editor, **nesta ordem**:
 
-1. `supabase/migrations/0001_role_kaptura_n8n.sql` — trocar
+1. `supabase/migrations/0001_role_kaptura_app.sql` — trocar
    `DEFINIR_SENHA_FORTE_AQUI` por uma senha forte antes de rodar. Não comitar a
    senha real; ela vive só na connection string dentro do n8n.
 2. `supabase/migrations/0002_kaptura_aceites.sql`
@@ -99,12 +99,12 @@ Rodar no SQL Editor, **nesta ordem**:
 ### Por que a migration tem policies de RLS
 
 O plano original ligava RLS sem nenhuma policy, contando só com as grants para
-o `kaptura_n8n`. Isso não funciona: com RLS ligada, quem não é dono da tabela
+o `kaptura_app`. Isso não funciona: com RLS ligada, quem não é dono da tabela
 precisa de policy **além** da grant — sem ela, todo INSERT do nó 3 seria negado
 e o workflow falharia em 100% dos aceites.
 
 A migration cria duas policies (`insert` e `select`) restritas ao role
-`kaptura_n8n`, espelhando exatamente as grants. A intenção original está
+`kaptura_app`, espelhando exatamente as grants. A intenção original está
 preservada:
 
 - `anon` e `authenticated` continuam sem acesso nenhum — nada acessível pela anon key;
@@ -121,7 +121,7 @@ Supabase → projeto `komplexa-form` → **Edge Functions → Secrets**:
 
 | Nome | Valor |
 |---|---|
-| `KAPTURA_DB_URL` | `postgresql://kaptura_n8n:SENHA@db.<ref>.supabase.co:5432/postgres` |
+| `KAPTURA_DB_URL` | `postgresql://kaptura_app:SENHA@db.<ref>.supabase.co:5432/postgres` |
 | `RESEND_API_KEY` | `re_...` (Fase 3) |
 | `ACEITES_EMAIL_INTERNO` | caixa interna que recebe o backup |
 | `CONTRATO_URL` | *(opcional)* URL do PDF; o padrão já aponta pro domínio de produção |
@@ -202,7 +202,7 @@ Rodar todos antes de liberar.
 | 3 | Avançar sem marcar o checkbox | Bloqueado, com mensagem no campo |
 | 4 | URL do webhook inválida temporariamente | **Não redireciona**, mostra a mensagem de erro, reabilita o botão (após 2 tentativas) |
 | 5 | Preencher o honeypot pelo console | Nada gravado no banco |
-| 6 | UPDATE/DELETE como `kaptura_n8n` | Negado — rodar `supabase/testes/verificar_append_only.sql` |
+| 6 | UPDATE/DELETE como `kaptura_app` | Negado — rodar `supabase/testes/verificar_append_only.sql` |
 | 7 | Viewport 390px | Formulário, checkbox e barra fixa sem sobreposição |
 
 Comandos úteis para o teste 5, no console da página:
@@ -242,7 +242,7 @@ order by criado_em desc;
 
 **Fase futura, já prevista (não implementar agora).** Webhook da Hypercash →
 `kaptura_pagamentos` → cruzamento automático com o aceite → disparo do H1.
-A tabela já existe e já tem as grants do `kaptura_n8n`.
+A tabela já existe e já tem as grants do `kaptura_app`.
 
 ---
 
@@ -250,7 +250,7 @@ A tabela já existe e já tem as grants do `kaptura_n8n`.
 
 Nunca comitar neste repositório:
 
-- senha do role `kaptura_n8n` / connection string do Supabase;
+- senha do role `kaptura_app` / connection string do Supabase;
 - `RESEND_API_KEY`;
 - tokens OAuth do Google.
 
@@ -266,7 +266,7 @@ Function e continua versionado, mas **não é o caminho ativo**. Ficou como
 alternativa caso o time prefira o painel visual do n8n para operar.
 
 Trocar de um para o outro é mudar `WEBHOOK_ACEITE` em `assinar.html` — o banco,
-as tabelas e o role `kaptura_n8n` são os mesmos nos dois caminhos.
+as tabelas e o role `kaptura_app` são os mesmos nos dois caminhos.
 
 Diferenças que importam se você voltar pro n8n:
 

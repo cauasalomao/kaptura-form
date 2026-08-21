@@ -13,7 +13,7 @@
  * porque o Resend caiu.
  *
  * Segredos (Supabase → Edge Functions → Secrets):
- *   KAPTURA_DB_URL          connection string do role kaptura_n8n
+ *   KAPTURA_DB_URL          connection string do role kaptura_app
  *   RESEND_API_KEY          chave da API do Resend
  *   ACEITES_EMAIL_INTERNO   caixa que recebe o backup do JSON
  *   CONTRATO_URL            (opcional) URL do PDF anexado no e-mail

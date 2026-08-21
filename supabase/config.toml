@@ -6,5 +6,5 @@ project_id = "komplexa-form"
 # e o aceite nunca seria registrado.
 #
 # Isso NÃO deixa o banco exposto: a função valida os dados no servidor,
-# tem honeypot e grava com o role kaptura_n8n, que só pode inserir e ler.
+# tem honeypot e grava com o role kaptura_app, que só pode inserir e ler.
 verify_jwt = false
