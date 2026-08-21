@@ -1,0 +1,169 @@
+{
+  "name": "Kaptura · Aceite de Contrato",
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "nodes": [
+    {
+      "id": "no1-webhook",
+      "name": "Webhook Aceite",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-360, 0],
+      "webhookId": "kaptura-aceite",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kaptura-aceite",
+        "responseMode": "onReceived",
+        "options": {
+          "responseData": "{\"ok\": true}",
+          "allowedOrigins": "https://kapturacreators.com.br,https://www.kapturacreators.com.br"
+        }
+      },
+      "notes": "Responde 200 {\"ok\":true} na hora. allowedOrigins e obrigatorio: a pagina roda em outro dominio e o preflight CORS falharia sem ele -- e com o redirect bloqueado (Fase 4) isso travaria TODOS os checkouts. Ajustar a lista se o dominio final mudar."
+    },
+    {
+      "id": "no2-normalizar",
+      "name": "Normalizar Aceite",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-140, 0],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const body = $json.body ?? $json;\nconst headers = $json.headers ?? {};\n\n// Honeypot: campo oculto preenchido = bot. Encerra sem gravar nada.\nif (body.site_url) {\n  return null;\n}\n\nif (!body.contratante) {\n  throw new Error('Payload invalido: campo \"contratante\" ausente.');\n}\n\nconst ip = String(headers['cf-connecting-ip'] || headers['x-forwarded-for'] || '')\n  .split(',')[0]\n  .trim();\n\nconst crypto = require('crypto');\nconst hash = crypto.createHash('sha256')\n  .update(JSON.stringify(body))\n  .digest('hex');\n\nconst c = body.contratante;\nconst digitos = String(c.documento || '').replace(/\\D/g, '');\n\nconst documentoFormatado = digitos.length === 14\n  ? digitos.replace(/^(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})$/, '$1.$2.$3/$4-$5')\n  : digitos.length === 11\n    ? digitos.replace(/^(\\d{3})(\\d{3})(\\d{3})(\\d{2})$/, '$1.$2.$3-$4')\n    : digitos;\n\n// Carimbo em horario de Brasilia para usar nos e-mails. A coluna\n// criado_em do banco fica com o default now() do Postgres.\nconst agora = new Date();\nconst registradoEmBr = new Intl.DateTimeFormat('pt-BR', {\n  timeZone: 'America/Sao_Paulo',\n  day: '2-digit', month: '2-digit', year: 'numeric',\n  hour: '2-digit', minute: '2-digit'\n}).format(agora).replace(', ', ' ');\n\nreturn {\n  json: {\n    versao_contrato: body.versao_contrato,\n    razao_social: c.razao_social,\n    documento: digitos,\n    tipo_documento: c.tipo_documento,\n    responsavel: c.responsavel,\n    email: c.email,\n    whatsapp: c.whatsapp,\n    ip,\n    user_agent: body.user_agent,\n    origem_pagina: body.origem_pagina,\n    hash_payload: hash,\n\n    // Campos abaixo NAO vao para o banco -- so para os e-mails.\n    documento_formatado: documentoFormatado,\n    registrado_em_br: registradoEmBr,\n    registrado_em_iso: agora.toISOString(),\n    payload_completo: JSON.stringify(body, null, 2)\n  }\n};\n"
+      },
+      "notes": "Extrai IP real (Cloudflare), calcula SHA-256 do payload cru e descarta bots via honeypot. documento e gravado so com digitos, para o cruzamento manual com a Hypercash bater sempre."
+    },
+    {
+      "id": "no3-postgres",
+      "name": "Registrar Aceite (Supabase)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.4,
+      "position": [80, 0],
+      "parameters": {
+        "operation": "insert",
+        "schema": { "__rl": true, "mode": "name", "value": "public" },
+        "table": { "__rl": true, "mode": "name", "value": "kaptura_aceites" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "versao_contrato": "={{ $json.versao_contrato }}",
+            "razao_social": "={{ $json.razao_social }}",
+            "documento": "={{ $json.documento }}",
+            "tipo_documento": "={{ $json.tipo_documento }}",
+            "responsavel": "={{ $json.responsavel }}",
+            "email": "={{ $json.email }}",
+            "whatsapp": "={{ $json.whatsapp }}",
+            "ip": "={{ $json.ip }}",
+            "user_agent": "={{ $json.user_agent }}",
+            "origem_pagina": "={{ $json.origem_pagina }}",
+            "hash_payload": "={{ $json.hash_payload }}"
+          }
+        },
+        "options": {}
+      },
+      "credentials": {
+        "postgres": { "id": "SUBSTITUIR", "name": "Supabase · kaptura_n8n" }
+      },
+      "onError": "stopWorkflow",
+      "notes": "NO CRITICO. Continue on Fail fica DESLIGADO de proposito: se o banco falhar, o workflow inteiro deve falhar e aparecer em vermelho no painel. Aceite sem registro e contrato sem prova."
+    },
+    {
+      "id": "no4-gmail",
+      "name": "Backup Interno (Gmail)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [300, 0],
+      "parameters": {
+        "sendTo": "CONFIRMAR_COM_CAUA@komplexa.com.br",
+        "subject": "=[ACEITE] {{ $('Normalizar Aceite').item.json.razao_social }} · {{ $('Normalizar Aceite').item.json.documento_formatado }} · {{ $('Normalizar Aceite').item.json.versao_contrato }}",
+        "emailType": "text",
+        "message": "=ACEITE REGISTRADO\n\nData/hora (Brasilia): {{ $('Normalizar Aceite').item.json.registrado_em_br }}\nVersao do contrato:  {{ $('Normalizar Aceite').item.json.versao_contrato }}\n\nRazao social:  {{ $('Normalizar Aceite').item.json.razao_social }}\nDocumento:     {{ $('Normalizar Aceite').item.json.documento_formatado }} ({{ $('Normalizar Aceite').item.json.tipo_documento }})\nResponsavel:   {{ $('Normalizar Aceite').item.json.responsavel }}\nE-mail:        {{ $('Normalizar Aceite').item.json.email }}\nWhatsApp:      {{ $('Normalizar Aceite').item.json.whatsapp }}\n\nIP:            {{ $('Normalizar Aceite').item.json.ip }}\nUser agent:    {{ $('Normalizar Aceite').item.json.user_agent }}\nOrigem:        {{ $('Normalizar Aceite').item.json.origem_pagina }}\nHash SHA-256:  {{ $('Normalizar Aceite').item.json.hash_payload }}\n\n--- PAYLOAD COMPLETO ---\n{{ $('Normalizar Aceite').item.json.payload_completo }}",
+        "options": { "appendAttribution": false }
+      },
+      "credentials": {
+        "gmailOAuth2": { "id": "SUBSTITUIR", "name": "Google Workspace · Komplexa" }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "CONFIRMAR O ENDERECO COM O CAUA antes de ativar. Continue on Fail ligado: falha de e-mail nao pode derrubar um aceite ja gravado."
+    },
+    {
+      "id": "no5-pdf",
+      "name": "Baixar PDF do Contrato",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [520, 0],
+      "parameters": {
+        "url": "https://kapturacreators.com.br/contrato-kaptura-hospedagem-v1.pdf",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "data"
+            }
+          }
+        }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "FASE 5: quando o contrato virar v1.1, esta URL muda no MESMO commit que a constante VERSAO_CONTRATO e o link do checkbox na pagina."
+    },
+    {
+      "id": "no5b-base64",
+      "name": "Montar E-mail do Cliente",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [740, 0],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const d = $('Normalizar Aceite').first().json;\n\n// O no 5 substitui o json do item pelo binario, entao os dados do\n// aceite sao lidos de volta pelo nome do no.\nlet anexos = [];\ntry {\n  const buffer = await this.helpers.getBinaryDataBuffer(0, 'data');\n  anexos = [{\n    filename: 'contrato-kaptura-hospedagem-v1.pdf',\n    content: buffer.toString('base64')\n  }];\n} catch (e) {\n  // PDF indisponivel: manda o e-mail mesmo assim, sem anexo. O aceite ja\n  // esta gravado e o cliente nao pode ficar sem confirmacao. A falha do\n  // no 5 fica registrada na execucao para o time reenviar o anexo.\n  anexos = [];\n}\n\nconst html = '<div style=\"font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#12233d;max-width:560px\">'\n  + '<p>Ol\\u00e1, ' + d.responsavel + '!</p>'\n  + '<p>Confirmamos o registro do seu aceite do Contrato de Ades\\u00e3o ao Programa Kaptura (vers\\u00e3o 1.0) em '\n  + d.registrado_em_br + ', em nome de ' + d.razao_social + ' (' + d.documento_formatado + ').</p>'\n  + '<p>O contrato completo est\\u00e1 anexado neste e-mail pra sua guarda.</p>'\n  + '<p><strong>Pr\\u00f3ximo passo:</strong> concluir a ativa\\u00e7\\u00e3o da assinatura na p\\u00e1gina de pagamento. '\n  + 'Se voc\\u00ea j\\u00e1 concluiu, \\u00e9 s\\u00f3 aguardar: nosso time entra em contato pelo WhatsApp pra dar as '\n  + 'boas-vindas e iniciar a curadoria do seu primeiro influenciador.</p>'\n  + '<p>Qualquer d\\u00favida, responde este e-mail.</p>'\n  + '<p style=\"margin-top:28px\"><strong>Kaptura Creators</strong><br>'\n  + '<span style=\"color:#6b7a90\">um programa Komplexa</span></p>'\n  + '</div>';\n\nreturn [{\n  json: {\n    from: 'Kaptura <contratos@kapturacreators.com.br>',\n    to: [d.email],\n    subject: 'Seu aceite do Contrato Kaptura foi registrado \\u2705',\n    html: html,\n    attachments: anexos\n  }\n}];\n"
+      },
+      "notes": "Converte o binario do no 5 em base64 e monta o corpo do Resend. Existe porque expressao de template nao le binario de forma confiavel."
+    },
+    {
+      "id": "no6-resend",
+      "name": "Enviar Confirmacao (Resend)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 0],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": { "id": "SUBSTITUIR", "name": "Resend · API Key" }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "Credencial Header Auth: Name = Authorization, Value = Bearer re_xxx. A API key vive SO aqui, nunca no repositorio."
+    }
+  ],
+  "connections": {
+    "Webhook Aceite": {
+      "main": [[{ "node": "Normalizar Aceite", "type": "main", "index": 0 }]]
+    },
+    "Normalizar Aceite": {
+      "main": [[{ "node": "Registrar Aceite (Supabase)", "type": "main", "index": 0 }]]
+    },
+    "Registrar Aceite (Supabase)": {
+      "main": [[{ "node": "Backup Interno (Gmail)", "type": "main", "index": 0 }]]
+    },
+    "Backup Interno (Gmail)": {
+      "main": [[{ "node": "Baixar PDF do Contrato", "type": "main", "index": 0 }]]
+    },
+    "Baixar PDF do Contrato": {
+      "main": [[{ "node": "Montar E-mail do Cliente", "type": "main", "index": 0 }]]
+    },
+    "Montar E-mail do Cliente": {
+      "main": [[{ "node": "Enviar Confirmacao (Resend)", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {}
+}
