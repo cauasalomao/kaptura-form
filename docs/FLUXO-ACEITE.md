@@ -10,16 +10,25 @@ Sans, paleta ciano/amarelo/tinta, skew de -10°) e usa o mesmo GTM (`GTM-PPZ9GFD
 
 ```
 assinar.html
-   └─ POST → n8n Webhook (/kaptura-aceite)
-                ├─ Code: extrai IP, calcula SHA-256 do payload, descarta bots
-                ├─ Postgres (Supabase): INSERT em kaptura_aceites   ← nó crítico
-                ├─ Gmail: backup do JSON → caixa interna
-                └─ HTTP (Resend): e-mail de confirmação + PDF pro cliente
+   └─ POST → Edge Function /kaptura-aceite   (roda no Supabase)
+                ├─ honeypot: descarta bot, responde 200 sem gravar
+                ├─ valida os dados no servidor (dígito verificador incluso)
+                ├─ extrai o IP real e calcula SHA-256 do corpo cru
+                ├─ INSERT em kaptura_aceites (como kaptura_app)  ← crítico
+                ├─ Resend: e-mail do cliente + PDF anexado
+                └─ Resend: backup do JSON → caixa interna
    └─ redirect → Hypercash (assinatura R$97/mês)
 ```
 
-O redirect para o pagamento **só acontece depois de um 2xx do webhook**.
+O redirect para o pagamento **só acontece depois de um 2xx da função**.
 Aceite sem registro é contrato sem prova.
+
+Regra de erro, espelhada na página: **falha de banco devolve 500** e trava o
+redirect; **falha de e-mail não devolve erro**. Um aceite já gravado não pode
+ser desfeito porque o Resend caiu — a falha vai pro log e o time reenvia.
+
+> O workflow do n8n continua versionado em `n8n/` como alternativa, mas **não é
+> o caminho ativo**. Ver "Alternativa: n8n" no fim deste documento.
 
 ## Arquivos
 
@@ -28,10 +37,12 @@ Aceite sem registro é contrato sem prova.
 | `assinar.html` | Página de adesão: formulário, clickwrap, honeypot, envio do aceite |
 | `index.html` | Página de candidatura, já existente — **não alterada** |
 | `contrato-kaptura-hospedagem-v1.pdf` | Contrato anexado no e-mail e linkado no checkbox — **ainda não está no repo** |
-| `supabase/migrations/0001_role_kaptura_n8n.sql` | Cria o usuário `kaptura_n8n` |
+| `supabase/migrations/0001_role_kaptura_app.sql` | Cria o usuário `kaptura_app` |
 | `supabase/migrations/0002_kaptura_aceites.sql` | Tabelas, índices, RLS e grants append-only |
 | `supabase/testes/verificar_append_only.sql` | Fase 6, teste 6 |
-| `n8n/kaptura-aceite.workflow.json` | Workflow "Kaptura · Aceite de Contrato", pronto para importar |
+| `supabase/functions/kaptura-aceite/index.ts` | **Edge Function** que registra o aceite e dispara os e-mails |
+| `supabase/config.toml` | `verify_jwt = false` na função (a página chama sem sessão) |
+| `n8n/kaptura-aceite.workflow.json` | Workflow equivalente — **alternativa, não usado** |
 
 ---
 
@@ -49,12 +60,14 @@ Nada disso vive no código — são valores que só o Cauã tem.
 > da taxa no painel da Hypercash, o cliente passa a ser cobrado acima do que
 > aceitou por contrato. Ao mexer no plano, conferir os três: página, Anexo II e
 > valor final do checkout.
-| `WEBHOOK_ACEITE` | `assinar.html` | Pré-preenchido: `https://webhook.komplexagrowth.com/webhook/kaptura-aceite` — **conferir** contra a URL de produção do nó 1 depois de importar o workflow |
+| `WEBHOOK_ACEITE` | `assinar.html` | **Placeholder** — `https://<ref>.supabase.co/functions/v1/kaptura-aceite`. O `<ref>` está em Project Settings → General → Reference ID |
+| `KAPTURA_DB_URL` | Secrets da Edge Function | Connection string do `kaptura_app` |
+| `ACEITES_EMAIL_INTERNO` | Secrets da Edge Function | Caixa que recebe o backup do JSON |
 | `WHATSAPP_SUPORTE` | `assinar.html` | **Placeholder** — link `wa.me` usado na mensagem de erro |
 | `VERSAO_CONTRATO` | `assinar.html` | `v1.0-ago2026` |
 | PDF do contrato | Raiz do repo | **Falta subir** |
 | Destinatário do backup | nó 4 do workflow | **Confirmar endereço** (`CONFIRMAR_COM_CAUA@…`) |
-| Connection string `kaptura_n8n` | Credenciais n8n | Criar na Fase 1 |
+| Connection string `kaptura_app` | Credenciais n8n | Criar na Fase 1 |
 | `RESEND_API_KEY` | Credenciais n8n | Criar na Fase 3 |
 | OAuth Gmail | Credenciais n8n | Conta Workspace existente |
 
@@ -78,7 +91,7 @@ A página empurra três eventos no `dataLayer`, para acompanhar o funil de ades�
 
 Rodar no SQL Editor, **nesta ordem**:
 
-1. `supabase/migrations/0001_role_kaptura_n8n.sql` — trocar
+1. `supabase/migrations/0001_role_kaptura_app.sql` — trocar
    `DEFINIR_SENHA_FORTE_AQUI` por uma senha forte antes de rodar. Não comitar a
    senha real; ela vive só na connection string dentro do n8n.
 2. `supabase/migrations/0002_kaptura_aceites.sql`
@@ -86,12 +99,12 @@ Rodar no SQL Editor, **nesta ordem**:
 ### Por que a migration tem policies de RLS
 
 O plano original ligava RLS sem nenhuma policy, contando só com as grants para
-o `kaptura_n8n`. Isso não funciona: com RLS ligada, quem não é dono da tabela
+o `kaptura_app`. Isso não funciona: com RLS ligada, quem não é dono da tabela
 precisa de policy **além** da grant — sem ela, todo INSERT do nó 3 seria negado
 e o workflow falharia em 100% dos aceites.
 
 A migration cria duas policies (`insert` e `select`) restritas ao role
-`kaptura_n8n`, espelhando exatamente as grants. A intenção original está
+`kaptura_app`, espelhando exatamente as grants. A intenção original está
 preservada:
 
 - `anon` e `authenticated` continuam sem acesso nenhum — nada acessível pela anon key;
@@ -100,43 +113,52 @@ preservada:
 
 ---
 
-## Fase 2 · n8n
+## Fase 2 · Edge Function
 
-1. Importar `n8n/kaptura-aceite.workflow.json`.
-2. Criar e vincular as três credenciais (Postgres, Gmail, Header Auth do Resend).
-   Os campos `"id": "SUBSTITUIR"` são preenchidos ao selecionar a credencial na UI.
-3. Confirmar o destinatário do nó 4.
-4. Ativar o workflow e copiar a **URL de produção** do nó 1 para `WEBHOOK_ACEITE`.
+### 2.1 · Segredos
 
-### Nós
+Supabase → projeto `komplexa-form` → **Edge Functions → Secrets**:
 
-| # | Nó | Papel |
-|---|---|---|
-| 1 | Webhook Aceite | POST `/kaptura-aceite`, responde `{"ok":true}` na hora |
-| 2 | Normalizar Aceite | IP real, SHA-256 do payload, honeypot, formatações |
-| 3 | Registrar Aceite (Supabase) | INSERT — **nó crítico** |
-| 4 | Backup Interno (Gmail) | JSON completo para a caixa interna |
-| 5 | Baixar PDF do Contrato | GET binário do PDF publicado |
-| 5b | Montar E-mail do Cliente | Converte o PDF em base64 e monta o corpo do Resend |
-| 6 | Enviar Confirmação (Resend) | POST `api.resend.com/emails` |
+| Nome | Valor |
+|---|---|
+| `KAPTURA_DB_URL` | `postgresql://kaptura_app:SENHA@db.<ref>.supabase.co:5432/postgres` |
+| `RESEND_API_KEY` | `re_...` (Fase 3) |
+| `ACEITES_EMAIL_INTERNO` | caixa interna que recebe o backup |
+| `CONTRATO_URL` | *(opcional)* URL do PDF; o padrão já aponta pro domínio de produção |
+| `REMETENTE` | *(opcional)* sobrescreve o remetente sem novo deploy |
 
-Dois detalhes que fogem do plano original, por necessidade técnica:
+Nenhum desses valores vai pro repositório.
 
-- **CORS no nó 1.** A página roda em `kapturacreators.com.br` e o n8n em outro
-  host, então o browser faz preflight. Sem `allowedOrigins` configurado o fetch
-  falha antes de sair — e como o redirect agora é bloqueado, isso travaria
-  *todos* os checkouts. A lista de origens está no nó; atualizar se o domínio mudar.
-- **Nó 5b.** Expressão de template não lê binário de forma confiável. O Code node
-  pega o buffer do nó 5, converte em base64 e monta o JSON do Resend. Se o PDF
-  estiver indisponível, manda o e-mail sem anexo em vez de deixar o cliente sem
-  confirmação — a falha do nó 5 fica registrada na execução para reenvio manual.
+### 2.2 · Deploy
 
-### Tratamento de erro
+```bash
+supabase login
+```
 
-- Nó 3: `onError: stopWorkflow`. Se o banco falhar, a execução falha e aparece
-  em vermelho no painel. É de propósito.
-- Nós 4, 5, 5b e 6: `onError: continueRegularOutput`. Falha de e-mail não derruba
-  um aceite já gravado.
+```bash
+supabase link --project-ref <ref>
+```
+
+```bash
+supabase functions deploy kaptura-aceite
+```
+
+Os dois primeiros são interativos (navegador e senha do banco) e precisam ser
+rodados por uma pessoa. O `config.toml` já traz `verify_jwt = false` — sem isso
+a função devolveria 401 para a página, que chama sem sessão de usuário.
+
+### 2.3 · Apontar a página
+
+Copiar a URL da função para `WEBHOOK_ACEITE` em `assinar.html`:
+
+```
+https://<ref>.supabase.co/functions/v1/kaptura-aceite
+```
+
+### 2.4 · Ver o que aconteceu
+
+Supabase → Edge Functions → `kaptura-aceite` → **Logs**. Toda falha de banco ou
+de e-mail é registrada com o prefixo `[kaptura-aceite]`.
 
 ---
 
@@ -147,7 +169,15 @@ Dois detalhes que fogem do plano original, por necessidade técnica:
    registros DNS que o painel fornecer (SPF, DKIM, DMARC).
 3. Aguardar a verificação, criar a API key e guardá-la nas credenciais do n8n
    como Header Auth: `Name = Authorization`, `Value = Bearer re_xxx`.
-4. Remetente: `contratos@kapturacreators.com.br`.
+4. Remetente: **`Kaptura <contratos@komplexagrowth.com>`**.
+
+> O domínio do remetente precisa estar verificado no Resend, senão o envio volta
+> 403. O plano free permite **um domínio só**, e o `komplexagrowth.com` já está
+> verificado — por isso não usamos `kapturacreators.com.br`. O nome de exibição
+> continua "Kaptura", que é o que o cliente vê na caixa de entrada.
+>
+> As respostas vão para `ACEITES_EMAIL_INTERNO` via `reply_to`: o endereço do
+> remetente é de disparo e ninguém acompanha.
 
 ---
 
@@ -161,7 +191,9 @@ Quando o contrato mudar, tudo isto vai no **mesmo commit**:
 1. Subir `contrato-kaptura-hospedagem-v1-1.pdf` (arquivo novo, nome novo);
 2. Atualizar `ARQUIVO_CONTRATO` em `assinar.html` (o link do checkbox lê essa constante);
 3. Atualizar `VERSAO_CONTRATO` em `assinar.html`;
-4. Atualizar a URL do nó 5 e o `filename` do anexo no nó 5b.
+4. Atualizar `NOME_ARQUIVO_CONTRATO` e o padrão de `CONTRATO_URL` em
+   `supabase/functions/kaptura-aceite/index.ts` (ou o secret `CONTRATO_URL`),
+   e fazer novo `supabase functions deploy`.
 
 **Nunca sobrescrever o PDF de uma versão antiga.** Aceites passados apontam para
 ela, e o registro no banco guarda a versão aceita.
@@ -179,7 +211,7 @@ Rodar todos antes de liberar.
 | 3 | Avançar sem marcar o checkbox | Bloqueado, com mensagem no campo |
 | 4 | URL do webhook inválida temporariamente | **Não redireciona**, mostra a mensagem de erro, reabilita o botão (após 2 tentativas) |
 | 5 | Preencher o honeypot pelo console | Nada gravado no banco |
-| 6 | UPDATE/DELETE como `kaptura_n8n` | Negado — rodar `supabase/testes/verificar_append_only.sql` |
+| 6 | UPDATE/DELETE como `kaptura_app` | Negado — rodar `supabase/testes/verificar_append_only.sql` |
 | 7 | Viewport 390px | Formulário, checkbox e barra fixa sem sobreposição |
 
 Comandos úteis para o teste 5, no console da página:
@@ -219,7 +251,7 @@ order by criado_em desc;
 
 **Fase futura, já prevista (não implementar agora).** Webhook da Hypercash →
 `kaptura_pagamentos` → cruzamento automático com o aceite → disparo do H1.
-A tabela já existe e já tem as grants do `kaptura_n8n`.
+A tabela já existe e já tem as grants do `kaptura_app`.
 
 ---
 
@@ -227,9 +259,31 @@ A tabela já existe e já tem as grants do `kaptura_n8n`.
 
 Nunca comitar neste repositório:
 
-- senha do role `kaptura_n8n` / connection string do Supabase;
+- senha do role `kaptura_app` / connection string do Supabase;
 - `RESEND_API_KEY`;
 - tokens OAuth do Google.
 
 Tudo isso vive só nas credenciais do n8n. A URL do webhook e o link de pagamento
 são públicos por natureza (rodam no browser do cliente) e podem ser versionados.
+
+---
+
+## Alternativa: n8n
+
+`n8n/kaptura-aceite.workflow.json` faz exatamente a mesma coisa que a Edge
+Function e continua versionado, mas **não é o caminho ativo**. Ficou como
+alternativa caso o time prefira o painel visual do n8n para operar.
+
+Trocar de um para o outro é mudar `WEBHOOK_ACEITE` em `assinar.html` — o banco,
+as tabelas e o role `kaptura_app` são os mesmos nos dois caminhos.
+
+Diferenças que importam se você voltar pro n8n:
+
+| | Edge Function | n8n |
+|---|---|---|
+| Onde vive | no repo, entra por commit | JSON importado na mão, pode divergir do repo |
+| Ver falhas | logs no dashboard do Supabase | painel com o nó vermelho e o payload |
+| Credenciais | Secrets do Supabase | credenciais do n8n |
+| E-mail interno | Resend | Gmail (OAuth do Workspace) |
+| IP do cliente | `x-forwarded-for` (último elemento) | `cf-connecting-ip` da Cloudflare |
+| Validação | refeita no servidor | confia no que a página mandou |

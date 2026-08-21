@@ -12,9 +12,9 @@
 --     [Convert]::ToBase64String((1..32|%{Get-Random -Maximum 256}))
 -- =====================================================================
 
-create role kaptura_n8n with login password 'DEFINIR_SENHA_FORTE_AQUI';
+create role kaptura_app with login password 'DEFINIR_SENHA_FORTE_AQUI';
 
-grant usage on schema public to kaptura_n8n;
+grant usage on schema public to kaptura_app;
 
 -- Nada alem disso: cada tabela concede explicitamente o que o n8n pode
 -- fazer nela (ver 0002). Uma tabela nova criada no futuro nasce

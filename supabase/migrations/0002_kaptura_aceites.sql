@@ -1,7 +1,7 @@
 -- =====================================================================
 -- Kaptura · Fase 1 (parte 2 de 2) · Tabelas de aceite e pagamentos
 -- ---------------------------------------------------------------------
--- Rodar DEPOIS de 0001_role_kaptura_n8n.sql.
+-- Rodar DEPOIS de 0001_role_kaptura_app.sql.
 --
 -- Regra permanente: kaptura_aceites e APPEND-ONLY. O usuario do n8n
 -- pode inserir e ler, nunca alterar ou apagar. Um aceite gravado e a
@@ -36,21 +36,21 @@ alter table kaptura_aceites enable row level security;
 revoke all on kaptura_aceites from anon, authenticated;
 
 -- Append-only para o n8n: so insert e select, sem update e sem delete.
-grant insert, select on kaptura_aceites to kaptura_n8n;
+grant insert, select on kaptura_aceites to kaptura_app;
 
--- IMPORTANTE: com RLS ligada, GRANT sozinho nao basta. kaptura_n8n nao e
+-- IMPORTANTE: com RLS ligada, GRANT sozinho nao basta. kaptura_app nao e
 -- dono da tabela, entao sem policy TODO insert e select dele seria negado
 -- e o no 3 do workflow falharia sempre. As duas policies abaixo liberam
 -- exatamente o que a grant ja permite -- e nada mais. Continua sem
 -- policy de update/delete de proposito: mesmo que alguem conceda a grant
 -- por engano no futuro, a RLS ainda barra.
-drop policy if exists aceites_n8n_insert on kaptura_aceites;
-create policy aceites_n8n_insert on kaptura_aceites
-  for insert to kaptura_n8n with check (true);
+drop policy if exists aceites_app_insert on kaptura_aceites;
+create policy aceites_app_insert on kaptura_aceites
+  for insert to kaptura_app with check (true);
 
-drop policy if exists aceites_n8n_select on kaptura_aceites;
-create policy aceites_n8n_select on kaptura_aceites
-  for select to kaptura_n8n using (true);
+drop policy if exists aceites_app_select on kaptura_aceites;
+create policy aceites_app_select on kaptura_aceites
+  for select to kaptura_app using (true);
 
 
 -- ---------------------------------------------------------------------
@@ -76,12 +76,12 @@ alter table kaptura_pagamentos enable row level security;
 
 revoke all on kaptura_pagamentos from anon, authenticated;
 
-grant insert, select on kaptura_pagamentos to kaptura_n8n;
+grant insert, select on kaptura_pagamentos to kaptura_app;
 
-drop policy if exists pagamentos_n8n_insert on kaptura_pagamentos;
-create policy pagamentos_n8n_insert on kaptura_pagamentos
-  for insert to kaptura_n8n with check (true);
+drop policy if exists pagamentos_app_insert on kaptura_pagamentos;
+create policy pagamentos_app_insert on kaptura_pagamentos
+  for insert to kaptura_app with check (true);
 
-drop policy if exists pagamentos_n8n_select on kaptura_pagamentos;
-create policy pagamentos_n8n_select on kaptura_pagamentos
-  for select to kaptura_n8n using (true);
+drop policy if exists pagamentos_app_select on kaptura_pagamentos;
+create policy pagamentos_app_select on kaptura_pagamentos
+  for select to kaptura_app using (true);
