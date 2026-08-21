@@ -46,10 +46,13 @@ header{display:flex;justify-content:space-between;align-items:center;padding:20p
 .hero .diag{position:absolute;top:0;right:-50px;width:130px;height:100%;background:var(--amarelo);transform:skewX(var(--skew));opacity:.95;z-index:0;}
 .hero .diag::before{content:"";position:absolute;left:-24px;top:0;width:11px;height:100%;background:var(--ciano);}
 @media(max-width:720px){.hero .diag{display:none;}}
-.kicker{font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--amarelo);text-transform:uppercase;}
-.hero h1{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:clamp(28px,5.6vw,52px);line-height:1.14;margin-top:14px;position:relative;z-index:2;}
+.kicker{font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--amarelo);text-transform:uppercase;max-width:420px;margin:0 auto;position:relative;z-index:2;}
+/* 10.2vw foi medido, não chutado: a linha mais larga ("SUA DIÁRIA VAZIA
+   VALE") ocupa 343px dos 358px disponíveis num iPhone de 390px. A 42px
+   ela estoura. Se a copy do título mudar, remedir antes de subir. */
+.hero h1{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:clamp(32px,10.2vw,52px);line-height:1.04;margin-top:16px;position:relative;z-index:2;}
 .hero h1 .tarja{background:var(--amarelo);color:var(--tinta);padding:0 10px;display:inline-block;}
-.hero p{max-width:520px;margin:18px auto 0;font-size:15px;line-height:1.6;color:rgba(251,250,247,.85);position:relative;z-index:2;}
+.hero p{max-width:520px;margin:20px auto 0;font-size:16px;line-height:1.6;color:rgba(251,250,247,.85);position:relative;z-index:2;}
 .hero p b{color:var(--amarelo);}
 .cta-hero{
   display:inline-block;margin-top:26px;position:relative;z-index:2;
@@ -163,9 +166,34 @@ footer .fl{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:.2em;tra
 footer .fl .u{color:var(--amarelo);}
 footer .fr{font-size:11px;letter-spacing:.08em;color:#5B7A88;}
 @media(max-width:560px){
+  .hero{padding:36px 16px 34px;}
   .hero .diag{width:70px;right:-36px;}
-  .stats{gap:20px;}
   .viewfinder{padding:30px 20px;}
+  .secao,.passos{padding-left:16px;padding-right:16px;}
+  .preco{padding:30px 18px;}
+
+  /* Kicker: .3em de espaçamento em tela estreita quebra a palavra no
+     meio. Aperta o tracking e deixa a linha respirar. */
+  .kicker{font-size:11px;letter-spacing:.16em;line-height:1.5;}
+
+  /* CTA ocupa a largura toda e o rótulo não quebra em duas linhas.
+     Antes, o texto ia pra segunda linha e sobrava um item órfão
+     centralizado embaixo. */
+  .cta-hero{
+    display:block;
+    width:100%;
+    font-size:15px;
+    letter-spacing:.04em;
+    padding:17px 14px;
+    text-align:center;
+  }
+
+  /* Stats em 2 colunas de verdade, em vez de flex-wrap improvisado. */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px;padding:24px 16px;}
+  .stat .l{max-width:none;font-size:9.5px;letter-spacing:.12em;}
+
+  .secao h2,.passos h2{font-size:24px;line-height:1.05;}
+  .check-item span{font-size:14.5px;}
 }
 </style>
 </head>
@@ -185,7 +213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="kicker">A REDE DE INFLUENCIADORES DA HOTELARIA</div>
   <h1>SUA DIÁRIA VAZIA VALE<br>CONTEÚDO QUE <span class="tarja">VIRA&nbsp;DEMANDA.</span></h1>
   <p>Influenciadores selecionados se hospedam na sua baixa ocupação e produzem um pacote completo de conteúdo profissional. Você não paga cachê: <b>paga com a diária que ia vencer vazia</b>.</p>
-  <a href="#adesao" class="cta-hero"><span>QUERO MINHA HOSPEDAGEM NA REDE →</span></a>
+  <a href="#adesao" class="cta-hero"><span>QUERO MINHA HOSPEDAGEM NA REDE</span></a>
   <div class="cta-micro">Condição de lançamento: <b>R$97/mês</b> · garantido por 12 meses · cancele quando quiser</div>
 </section>
 
@@ -232,7 +260,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="de">de R$ 397/mês</div>
   <div class="por">R$ 97<small>/MÊS</small></div>
   <div class="cond">Condição de lançamento garantida por 12 meses · 1 sessão por mês · assinatura no cartão · cancele quando quiser, sem multa</div>
-  <a href="#adesao" class="cta-hero" style="background:var(--tinta);color:var(--amarelo);margin-top:20px;"><span>GARANTIR A CONDIÇÃO DE LANÇAMENTO →</span></a>
+  <a href="#adesao" class="cta-hero" style="background:var(--tinta);color:var(--amarelo);margin-top:20px;"><span>GARANTIR A CONDIÇÃO DE LANÇAMENTO</span></a>
 </section>
 
 <section class="form-wrap" id="adesao">
@@ -271,7 +299,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="erro" id="erro" role="alert" aria-live="assertive"></div>
 
-      <button type="submit" class="btn" id="btn"><span>Continuar para o pagamento →</span></button>
+      <button type="submit" class="btn" id="btn"><span>Continuar para o pagamento</span></button>
       <div class="seguro">🔒 Pagamento processado em ambiente seguro. Cobrança automática no cartão, cancele quando quiser.</div>
 
     </form>
@@ -285,7 +313,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="barra-fixa" id="barraFixa" aria-hidden="true">
   <span class="p">R$ 97<small>/MÊS</small></span>
-  <a href="#adesao"><span>Entrar pra rede →</span></a>
+  <a href="#adesao"><span>Entrar pra rede</span></a>
 </div>
 
 <script>
@@ -476,7 +504,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var b = $("btn");
     b.disabled = t;
     b.innerHTML = t ? "<span>Registrando aceite…</span>"
-                    : "<span>Continuar para o pagamento →</span>";
+                    : "<span>Continuar para o pagamento</span>";
   }
 
   var MSG_FALHA =
