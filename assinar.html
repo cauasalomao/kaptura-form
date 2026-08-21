@@ -32,7 +32,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;}
+/* A faixa diagonal do header sangra pra fora da viewport de propósito.
+   `clip` no elemento raiz mata o scroll horizontal sem criar contexto de
+   rolagem — só `overflow-x:hidden` no body não segura o scroll do html. */
+html{-webkit-text-size-adjust:100%;overflow-x:clip;}
 body{
   font-family:'Work Sans',sans-serif;
   background:var(--amarelo);
@@ -142,6 +145,13 @@ main{flex:1;padding:0 24px 40px;}
   letter-spacing:.14em;
   color:var(--ciano);
   margin-left:6px;
+}
+.promo{
+  margin-top:10px;
+  font-size:13px;
+  font-weight:600;
+  line-height:1.5;
+  max-width:340px;
 }
 
 /* ---------- Blocos de conteudo ---------- */
@@ -362,6 +372,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         você recebe o influenciador certo — e o conteúdo que enche a agenda.
       </p>
       <div class="tarja-preco"><span><b>R$97</b><small>POR MÊS</small></span></div>
+      <p class="promo">Condição de lançamento, garantida por 12 meses.
+        Valor de tabela: R$397/mês.</p>
     </section>
 
     <section class="bloco">
@@ -376,16 +388,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="bloco">
       <h2>O que está incluso</h2>
       <ul class="inclui">
-        <li>Curadoria e seleção dos creators</li>
+        <li><b>1 sessão por mês</b> — um creator hospedado no seu estabelecimento</li>
+        <li>Curadoria e seleção do creator adequado ao seu perfil</li>
         <li>Intermediação completa do contato e do agendamento</li>
         <li>Direção de conteúdo enviada ao creator antes da hospedagem</li>
-        <li>Acompanhamento da entrega do material</li>
-        <li>Suporte por WhatsApp durante toda a temporada</li>
+        <li>Auditoria da entrega: se o creator não entregar, designamos outro sem custo</li>
+        <li>Suporte pelos canais oficiais do programa</li>
       </ul>
       <p class="aviso">
         A assinatura cobre a curadoria e a intermediação. O modelo é <b>permuta</b>:
-        hospedagem em troca de conteúdo, com entregáveis definidos em contrato.
-        Não há repasse em dinheiro ao creator.
+        de 1 a 2 diárias com café da manhã, admitido 1 acompanhante, em troca dos
+        conteúdos definidos no contrato. Não há repasse em dinheiro ao creator.
       </p>
     </section>
 
