@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adesão ao Programa Kaptura</title>
-<meta name="description" content="Adesão ao Programa Kaptura Creators — a rede de creators da hotelaria. R$97/mês.">
-<meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaptura ⁄ Entre pra rede</title>
+<meta name="description" content="Coloque sua hospedagem na Kaptura: influenciadores selecionados produzindo conteúdo profissional todo mês, em permuta com contrato.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,328 +24,148 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --ciano:#20CBFB;
   --amarelo:#FFD43B;
   --tinta:#06344A;
+  --tinta-2:#052A3C;
   --offwhite:#FBFAF7;
-  --agua-clara:#E3F7FE;
-  --sol-claro:#FFF4CC;
   --skew:-10deg;
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{overflow-x:clip;}
+body{font-family:'Work Sans',sans-serif;background:var(--tinta);color:var(--offwhite);overflow-x:hidden;}
+.anton{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));display:inline-block;}
 
-*{box-sizing:border-box;margin:0;padding:0;}
-/* A faixa diagonal do header sangra pra fora da viewport de propósito.
-   `clip` no elemento raiz mata o scroll horizontal sem criar contexto de
-   rolagem — só `overflow-x:hidden` no body não segura o scroll do html. */
-html{-webkit-text-size-adjust:100%;overflow-x:clip;}
-body{
-  font-family:'Work Sans',sans-serif;
-  background:var(--amarelo);
-  color:var(--tinta);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  overflow-x:hidden;
-}
-
-/* ---------- Header ---------- */
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 24px;
-  position:relative;
-  z-index:5;
-  gap:12px;
-}
-.logo{
-  font-family:'Anton',sans-serif;
-  font-size:22px;
-  letter-spacing:.14em;
-  color:var(--tinta);
-  transform:skewX(var(--skew));
-  position:relative;
-  z-index:6;
-}
-.logo .u{color:var(--offwhite);}
-.logo small{
-  display:block;
-  font-family:'Work Sans',sans-serif;
-  font-weight:600;
-  font-size:9px;
-  letter-spacing:.5em;
-  transform:none;
-  margin-top:2px;
-}
-.badge-rec{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:var(--tinta);
-  color:var(--amarelo);
-  font-weight:600;
-  font-size:11px;
-  letter-spacing:.18em;
-  padding:8px 14px;
-  transform:skewX(var(--skew));
-  position:relative;
-  z-index:6;
-}
-.badge-rec span{transform:skewX(10deg);display:flex;align-items:center;gap:8px;}
-.rec-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--ciano);
-  animation:rec 1.2s infinite;
-}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;position:relative;overflow:hidden;}
+.logo{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.14em;transform:skewX(var(--skew));position:relative;z-index:2;}
+.logo .u{color:var(--amarelo);}
+.logo small{display:block;font-family:'Work Sans',sans-serif;font-weight:600;font-size:9px;letter-spacing:.5em;transform:none;margin-top:2px;color:#7FB8CC;}
+.rec{display:flex;align-items:center;gap:8px;font-weight:700;font-size:11px;letter-spacing:.24em;position:relative;z-index:2;}
+.rec i{width:10px;height:10px;border-radius:50%;background:var(--ciano);animation:rec 1.2s infinite;}
 @keyframes rec{0%,100%{opacity:1}50%{opacity:.25}}
-.diagonal-top{
-  position:absolute;
-  top:0;right:-40px;
-  width:150px;height:220px;
-  background:var(--ciano);
-  transform:skewX(var(--skew));
-  z-index:1;
-}
+@media(prefers-reduced-motion:reduce){.rec i{animation:none}}
 
-/* ---------- Layout ---------- */
-main{flex:1;padding:0 24px 40px;}
-.shell{max-width:660px;margin:0 auto;}
+.hero{text-align:center;padding:44px 24px 36px;position:relative;overflow:hidden;}
+.hero .diag{position:absolute;top:0;right:-50px;width:130px;height:100%;background:var(--amarelo);transform:skewX(var(--skew));opacity:.95;z-index:0;}
+.hero .diag::before{content:"";position:absolute;left:-24px;top:0;width:11px;height:100%;background:var(--ciano);}
+@media(max-width:720px){.hero .diag{display:none;}}
+.kicker{font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--amarelo);text-transform:uppercase;}
+.hero h1{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:clamp(28px,5.6vw,52px);line-height:1.14;margin-top:14px;position:relative;z-index:2;}
+.hero h1 .tarja{background:var(--amarelo);color:var(--tinta);padding:0 10px;display:inline-block;}
+.hero p{max-width:520px;margin:18px auto 0;font-size:15px;line-height:1.6;color:rgba(251,250,247,.85);position:relative;z-index:2;}
+.hero p b{color:var(--amarelo);}
+.cta-hero{
+  display:inline-block;margin-top:26px;position:relative;z-index:2;
+  font-family:'Anton',sans-serif;text-transform:uppercase;font-size:17px;letter-spacing:.08em;
+  background:var(--amarelo);color:var(--tinta);text-decoration:none;
+  padding:16px 30px;transform:skewX(var(--skew));
+  transition:transform .12s, background .15s;
+}
+.cta-hero span{display:inline-block;transform:skewX(10deg);}
+.cta-hero:hover{background:#FFDD5C;}
+.cta-hero:active{transform:skewX(var(--skew)) scale(.97);}
+.cta-micro{margin-top:12px;font-size:12px;color:#9BC4D4;letter-spacing:.04em;position:relative;z-index:2;}
+.cta-micro b{color:var(--amarelo);}
 
-.hero{margin:10px 0 26px;position:relative;z-index:5;}
-.hero h1{
-  font-family:'Anton',sans-serif;
-  text-transform:uppercase;
-  transform:skewX(var(--skew));
-  font-size:clamp(28px,7vw,46px);
-  line-height:1.02;
-  margin-bottom:14px;
-}
-.hero h1 .cy{color:var(--offwhite);}
-.hero .sub{
-  font-size:16px;
-  line-height:1.55;
-  font-weight:500;
-  max-width:470px;
-  margin-bottom:18px;
-}
-.tarja-preco{
-  display:inline-block;
-  background:var(--tinta);
-  color:var(--amarelo);
-  transform:skewX(var(--skew));
-  padding:10px 20px;
-}
-.tarja-preco span{display:inline-block;transform:skewX(10deg);}
-.tarja-preco b{
-  font-family:'Anton',sans-serif;
-  font-size:26px;
-  letter-spacing:.04em;
-}
-.tarja-preco small{
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.14em;
-  color:var(--ciano);
-  margin-left:6px;
-}
-.promo{
-  margin-top:10px;
-  font-size:13px;
-  font-weight:600;
-  line-height:1.5;
-  max-width:340px;
-}
+.passos{max-width:680px;margin:0 auto;padding:38px 24px 6px;}
+.passos h2{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:clamp(22px,4vw,32px);margin-bottom:20px;}
+.passos h2 .cy{color:var(--ciano);}
+.passo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.passo{background:rgba(251,250,247,.05);border-top:4px solid var(--amarelo);padding:16px 14px;}
+.passo:nth-child(2){border-top-color:var(--ciano);}
+.passo .n{font-family:'Anton',sans-serif;font-size:22px;color:var(--amarelo);transform:skewX(var(--skew));display:inline-block;}
+.passo:nth-child(2) .n{color:var(--ciano);}
+.passo .t{font-weight:700;font-size:13.5px;margin-top:6px;}
+.passo .d{font-size:12.5px;line-height:1.5;color:rgba(251,250,247,.7);margin-top:4px;}
+@media(max-width:560px){.passo-grid{grid-template-columns:1fr;}}
 
-/* ---------- Blocos de conteudo ---------- */
-.bloco{
-  background:var(--offwhite);
-  border:3px solid var(--tinta);
-  padding:24px 22px;
-  margin-bottom:20px;
+.barra-fixa{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:var(--amarelo);color:var(--tinta);
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  transform:translateY(110%);transition:transform .25s ease;
+  box-shadow:0 -4px 18px rgba(0,0,0,.25);
 }
-.bloco h2{
-  font-family:'Anton',sans-serif;
-  text-transform:uppercase;
-  transform:skewX(var(--skew));
-  font-size:clamp(20px,4vw,26px);
-  line-height:1.08;
-  margin-bottom:16px;
+.barra-fixa.on{transform:none;}
+.barra-fixa .p{font-family:'Anton',sans-serif;font-size:17px;transform:skewX(var(--skew));white-space:nowrap;}
+.barra-fixa .p small{font-size:.6em;}
+.barra-fixa a{
+  font-family:'Anton',sans-serif;text-transform:uppercase;font-size:13px;letter-spacing:.06em;
+  background:var(--tinta);color:var(--amarelo);text-decoration:none;
+  padding:10px 18px;transform:skewX(var(--skew));white-space:nowrap;
 }
+.barra-fixa a span{display:inline-block;transform:skewX(10deg);}
 
-.passos{list-style:none;counter-reset:p;display:flex;flex-direction:column;gap:14px;}
-.passos li{display:flex;gap:14px;align-items:flex-start;}
-.passos li::before{
-  counter-increment:p;
-  content:counter(p);
-  font-family:'Anton',sans-serif;
-  background:var(--tinta);
-  color:var(--ciano);
-  width:34px;height:34px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  transform:skewX(var(--skew));
-  font-size:16px;
-}
-.passos b{display:block;font-weight:700;font-size:15px;margin-bottom:2px;}
-.passos span{font-size:14px;line-height:1.55;color:#3E6A7D;}
+.stats{display:flex;justify-content:center;gap:34px;flex-wrap:wrap;padding:26px 24px;background:var(--tinta-2);}
+.stat{text-align:center;}
+.stat .n{font-family:'Anton',sans-serif;font-size:26px;color:var(--amarelo);transform:skewX(var(--skew));display:inline-block;}
+.stat .n.cy{color:var(--ciano);}
+.stat .l{font-size:10px;font-weight:600;letter-spacing:.16em;color:#7FB8CC;text-transform:uppercase;margin-top:4px;max-width:130px;}
 
-.inclui{list-style:none;display:flex;flex-direction:column;gap:11px;}
-.inclui li{
-  display:flex;gap:12px;align-items:flex-start;
-  font-size:15px;font-weight:500;line-height:1.5;
-}
-.inclui li::before{
-  content:"";
-  width:16px;height:16px;
-  background:var(--ciano);
-  border:3px solid var(--tinta);
-  flex-shrink:0;
-  margin-top:3px;
-}
+.secao{max-width:680px;margin:0 auto;padding:44px 24px;}
+.secao h2{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:clamp(22px,4vw,32px);margin-bottom:20px;}
+.secao h2 .am{color:var(--amarelo);}
+.check-list{display:flex;flex-direction:column;gap:12px;}
+.check-item{display:flex;gap:12px;align-items:flex-start;}
+.check-item .c{flex-shrink:0;width:22px;height:22px;background:var(--ciano);color:var(--tinta);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;transform:skewX(var(--skew));margin-top:2px;}
+.check-item span{font-size:15px;line-height:1.55;color:rgba(251,250,247,.9);}
+.check-item b{color:var(--amarelo);}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;}
+.pill{background:rgba(32,203,251,.12);border:1px solid rgba(32,203,251,.4);color:var(--ciano);font-size:12px;font-weight:700;letter-spacing:.08em;padding:7px 14px;border-radius:100px;}
+.nota-permuta{margin-top:22px;font-size:13px;line-height:1.6;color:rgba(251,250,247,.65);border-left:3px solid rgba(32,203,251,.5);padding-left:14px;}
 
-.aviso{
-  background:var(--sol-claro);
-  border-left:5px solid var(--tinta);
-  padding:14px 16px;
-  font-size:14px;
-  line-height:1.55;
-  font-weight:500;
-  margin-top:18px;
-}
+.preco{background:var(--amarelo);color:var(--tinta);max-width:680px;margin:0 auto;padding:34px 28px;text-align:center;}
+.preco .de{font-size:17px;font-weight:600;color:#7A5E00;position:relative;display:inline-block;}
+.preco .de::after{content:"";position:absolute;left:-3%;right:-3%;top:52%;height:3px;background:var(--ciano);transform:rotate(-4deg);}
+.preco .por{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:clamp(48px,9vw,72px);line-height:1;margin:10px 0 6px;}
+.preco .por small{font-size:.34em;}
+.preco .cond{font-size:13px;font-weight:600;line-height:1.5;max-width:420px;margin:0 auto;}
 
-/* ---------- Formulario ---------- */
-.hint{
-  font-size:14px;
-  color:#3E6A7D;
-  margin-bottom:22px;
-  line-height:1.5;
-}
-.campo{margin-bottom:18px;}
-label.lbl{
-  display:block;
-  font-weight:600;
-  font-size:13px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  margin-bottom:7px;
-}
-label.lbl em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;color:#3E6A7D;}
+.form-wrap{max-width:560px;margin:0 auto;padding:44px 24px 60px;}
+.viewfinder{position:relative;background:var(--offwhite);color:var(--tinta);padding:38px 30px;}
+.vf{position:absolute;width:24px;height:24px;border:0 solid var(--amarelo);}
+.vf.tl{top:-6px;left:-6px;border-top-width:5px;border-left-width:5px;}
+.vf.tr{top:-6px;right:-6px;border-top-width:5px;border-right-width:5px;}
+.vf.bl{bottom:-6px;left:-6px;border-bottom-width:5px;border-left-width:5px;}
+.vf.br{bottom:-6px;right:-6px;border-bottom-width:5px;border-right-width:5px;}
+.form-wrap h2{font-family:'Anton',sans-serif;text-transform:uppercase;transform:skewX(var(--skew));font-size:24px;color:var(--tinta);margin-bottom:6px;}
+.form-wrap .hint{font-size:13px;color:#3E6A7D;margin-bottom:22px;}
+label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#3E6A7D;margin:16px 0 6px;}
 input[type=text],input[type=email],input[type=tel]{
-  width:100%;
-  border:3px solid var(--tinta);
-  background:#fff;
-  padding:16px 18px;
-  font-family:'Work Sans',sans-serif;
-  font-size:17px;
-  font-weight:500;
-  color:var(--tinta);
-  outline:none;
+  width:100%;border:3px solid var(--tinta);background:#fff;padding:13px 15px;
+  font-family:'Work Sans',sans-serif;font-size:16px;font-weight:500;color:var(--tinta);outline:none;
 }
-input:focus{border-color:var(--ciano);box-shadow:0 0 0 3px var(--agua-clara);}
+input:focus{border-color:var(--ciano);box-shadow:0 0 0 3px #D9F5FE;}
 input::placeholder{color:#9BB4BE;font-weight:400;}
 input[aria-invalid=true]{border-color:#A32D2D;}
 
-/* Honeypot: fora da tela, nunca display:none. */
-.hp{
-  position:absolute !important;
-  left:-9999px !important;
-  top:auto !important;
-  width:1px !important;height:1px !important;
-  overflow:hidden !important;
-}
+/* Honeypot anti-bot: fora da tela, nunca display:none — robô preenche,
+   gente não vê. O n8n descarta o envio quando vem preenchido. */
+.hp{position:absolute !important;left:-9999px !important;top:auto !important;width:1px !important;height:1px !important;overflow:hidden !important;}
 
-.check{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  background:#fff;
-  border:3px solid var(--tinta);
-  padding:14px 16px;
-  cursor:pointer;
-  font-size:14px;
-  font-weight:500;
-  line-height:1.5;
-  margin-top:24px;
-}
-.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--tinta);flex-shrink:0;}
-.check a{color:var(--tinta);font-weight:700;}
-
-.error{
-  display:none;
-  margin-top:12px;
-  font-size:13px;
-  font-weight:600;
-  color:#A32D2D;
-  background:#FCEBEB;
-  border-left:5px solid #A32D2D;
-  padding:8px 12px;
-}
-.error.show{display:block;}
-.error a{color:#A32D2D;font-weight:700;}
-
+.aceite{display:flex;gap:12px;align-items:flex-start;background:#FFF4CC;border:3px solid var(--tinta);padding:14px 15px;margin-top:22px;cursor:pointer;}
+.aceite input{width:20px;height:20px;margin-top:2px;accent-color:var(--tinta);flex-shrink:0;}
+.aceite span{font-size:13.5px;font-weight:500;line-height:1.55;color:var(--tinta);}
+.aceite a{color:#0A6E94;font-weight:700;}
+.erro{display:none;margin-top:12px;font-size:13px;font-weight:600;color:#A32D2D;background:#FCEBEB;border-left:5px solid #A32D2D;padding:8px 12px;}
+.erro.show{display:block;}
+.erro a{color:#A32D2D;font-weight:700;}
 .btn{
-  font-family:'Anton',sans-serif;
-  text-transform:uppercase;
-  font-size:16px;
-  letter-spacing:.1em;
-  border:none;
-  cursor:pointer;
-  padding:15px 30px;
-  transform:skewX(var(--skew));
-  transition:transform .12s;
+  width:100%;margin-top:22px;border:none;cursor:pointer;
+  font-family:'Anton',sans-serif;text-transform:uppercase;font-size:17px;letter-spacing:.08em;
+  background:var(--tinta);color:var(--amarelo);padding:16px;transform:skewX(var(--skew));
 }
 .btn span{display:inline-block;transform:skewX(10deg);}
-.btn:active:not(:disabled){transform:skewX(var(--skew)) scale(.97);}
-.btn-submit{background:var(--ciano);color:var(--tinta);width:100%;margin-top:26px;}
-.btn-submit:hover:not(:disabled){background:#4AD6FC;}
-.btn-submit:disabled{background:#9BB4BE;cursor:progress;}
+.btn:hover:not(:disabled){background:#0A4560;}
+.btn:disabled{opacity:.6;cursor:wait;}
+.seguro{text-align:center;font-size:11.5px;color:#9BB4BE;margin-top:14px;letter-spacing:.04em;}
 
-.selo{
-  margin-top:14px;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.06em;
-  color:#3E6A7D;
-  text-align:center;
-  line-height:1.5;
-}
-
-/* ---------- Footer ---------- */
-footer{
-  background:var(--offwhite);
-  padding:16px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:8px;
-}
-.fl{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.14em;transform:skewX(var(--skew));}
-.fl .u{color:var(--ciano);}
-.fr{font-size:11px;font-weight:600;letter-spacing:.08em;color:#3E6A7D;}
-
-/* ---------- Barra fixa (mobile) ---------- */
-.barra{display:none;}
-@media (max-width:780px){
-  body{padding-bottom:76px;}
-  .barra{
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    position:fixed;left:0;right:0;bottom:0;z-index:50;
-    background:var(--tinta);
-    padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
-    transition:transform .2s;
-  }
-  .barra .v{color:var(--offwhite);font-size:11px;font-weight:600;letter-spacing:.14em;line-height:1.3;}
-  .barra .v b{display:block;font-family:'Anton',sans-serif;font-size:20px;color:var(--amarelo);letter-spacing:.04em;}
-  .barra .btn{padding:12px 22px;font-size:14px;background:var(--ciano);color:var(--tinta);}
-  .barra.oculta{transform:translateY(120%);}
-}
-@media (max-width:520px){
-  main{padding:0 16px 40px;}
-  header{padding:16px;}
-  .bloco{padding:20px 16px;}
-  .diagonal-top{width:110px;height:170px;right:-30px;}
-}
-@media (prefers-reduced-motion:reduce){
-  .rec-dot{animation:none}
-  *{transition:none !important}
+footer{background:var(--tinta-2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+footer .fl{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:.2em;transform:skewX(var(--skew));}
+footer .fl .u{color:var(--amarelo);}
+footer .fr{font-size:11px;letter-spacing:.08em;color:#5B7A88;}
+@media(max-width:560px){
+  .hero .diag{width:70px;right:-36px;}
+  .stats{gap:20px;}
+  .viewfinder{padding:30px 20px;}
 }
 </style>
 </head>
@@ -358,129 +177,115 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header>
   <div class="logo">KAPT<span class="u">U</span>RA<small>CREATORS</small></div>
-  <div class="badge-rec"><span><span class="rec-dot"></span>ADESÃO</span></div>
-  <div class="diagonal-top" aria-hidden="true"></div>
+  <div class="rec"><i></i>REC</div>
 </header>
 
-<main>
-  <div class="shell">
+<section class="hero">
+  <div class="diag" aria-hidden="true"></div>
+  <div class="kicker">A REDE DE INFLUENCIADORES DA HOTELARIA</div>
+  <h1>SUA DIÁRIA VAZIA VALE<br>CONTEÚDO QUE <span class="tarja">VIRA&nbsp;DEMANDA.</span></h1>
+  <p>Influenciadores selecionados se hospedam na sua baixa ocupação e produzem um pacote completo de conteúdo profissional. Você não paga cachê: <b>paga com a diária que ia vencer vazia</b>.</p>
+  <a href="#adesao" class="cta-hero"><span>QUERO MINHA HOSPEDAGEM NA REDE →</span></a>
+  <div class="cta-micro">Condição de lançamento: <b>R$97/mês</b> · garantido por 12 meses · cancele quando quiser</div>
+</section>
 
-    <section class="hero">
-      <h1>ATIVE SUA<br><span class="cy">ADESÃO.</span></h1>
-      <p class="sub">
-        Entre na rede de creators da hotelaria. A gente faz a curadoria,
-        você recebe o influenciador certo — e o conteúdo que enche a agenda.
-      </p>
-      <div class="tarja-preco"><span><b>R$97</b><small>POR MÊS</small></span></div>
-      <p class="promo">Condição de lançamento, garantida por 12 meses.
-        Valor de tabela: R$397/mês.</p>
-    </section>
+<div class="stats">
+  <div class="stat"><div class="n">+40</div><div class="l">Hotéis e pousadas atendidos</div></div>
+  <div class="stat"><div class="n cy" style="font-size:20px;">BRASIL</div><div class="l">Atuação no país inteiro</div></div>
+  <div class="stat"><div class="n" style="font-size:20px;">KOMPLEXA</div><div class="l">Especialistas em marketing hoteleiro</div></div>
+  <div class="stat"><div class="n cy">100%</div><div class="l">Foco em canal direto</div></div>
+</div>
 
-    <section class="bloco">
-      <h2>Como funciona</h2>
-      <ol class="passos">
-        <li><div><b>Você faz a adesão</b><span>Preenche os dados, aceita o contrato e ativa a assinatura. Leva menos de dois minutos.</span></div></li>
-        <li><div><b>A gente faz a curadoria</b><span>Nosso time seleciona creators alinhados ao perfil da sua hospedagem e ao público que você quer atrair.</span></div></li>
-        <li><div><b>Você recebe o creator</b><span>Combinamos as datas, alinhamos a direção de conteúdo e acompanhamos a entrega do material.</span></div></li>
-      </ol>
-    </section>
-
-    <section class="bloco">
-      <h2>O que está incluso</h2>
-      <ul class="inclui">
-        <li><b>1 sessão por mês</b> — um creator hospedado no seu estabelecimento</li>
-        <li>Curadoria e seleção do creator adequado ao seu perfil</li>
-        <li>Intermediação completa do contato e do agendamento</li>
-        <li>Direção de conteúdo enviada ao creator antes da hospedagem</li>
-        <li>Auditoria da entrega: se o creator não entregar, designamos outro sem custo</li>
-        <li>Suporte pelos canais oficiais do programa</li>
-      </ul>
-      <p class="aviso">
-        A assinatura cobre a curadoria e a intermediação. O modelo é <b>permuta</b>:
-        de 1 a 2 diárias com café da manhã, admitido 1 acompanhante, em troca dos
-        conteúdos definidos no contrato. Não há repasse em dinheiro ao creator.
-      </p>
-    </section>
-
-    <section class="bloco" id="form">
-      <h2>Dados da contratante</h2>
-      <p class="hint">Os dados abaixo entram no contrato e no registro do seu aceite.</p>
-
-      <form id="form-aceite" novalidate autocomplete="on">
-
-        <div class="campo">
-          <label class="lbl" for="razao_social">Razão social ou nome do estabelecimento</label>
-          <input type="text" id="razao_social" name="razao_social" autocomplete="organization"
-                 placeholder="Pousada Recanto do Mar LTDA">
-          <div class="error" id="erro_razao_social"></div>
-        </div>
-
-        <div class="campo">
-          <label class="lbl" for="documento">CNPJ ou CPF <em>— a máscara é automática</em></label>
-          <input type="text" id="documento" name="documento" inputmode="numeric"
-                 placeholder="00.000.000/0000-00">
-          <div class="error" id="erro_documento"></div>
-        </div>
-
-        <div class="campo">
-          <label class="lbl" for="responsavel">Responsável pelo aceite</label>
-          <input type="text" id="responsavel" name="responsavel" autocomplete="name"
-                 placeholder="Maria Souza">
-          <div class="error" id="erro_responsavel"></div>
-        </div>
-
-        <div class="campo">
-          <label class="lbl" for="email">E-mail <em>— o contrato vai pra cá</em></label>
-          <input type="email" id="email" name="email" autocomplete="email"
-                 placeholder="maria@pousada.com.br">
-          <div class="error" id="erro_email"></div>
-        </div>
-
-        <div class="campo">
-          <label class="lbl" for="whatsapp">WhatsApp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" inputmode="numeric" autocomplete="tel"
-                 placeholder="(11) 99999-9999">
-          <div class="error" id="erro_whatsapp"></div>
-        </div>
-
-        <!-- Honeypot anti-bot: invisível para gente, preenchido por robô.
-             O n8n descarta o envio quando este campo vem com conteúdo. -->
-        <div class="hp" aria-hidden="true">
-          <label for="site_url">Não preencha este campo</label>
-          <input type="text" id="site_url" name="site_url" tabindex="-1" autocomplete="off">
-        </div>
-
-        <label class="check" for="aceite">
-          <input type="checkbox" id="aceite" name="aceite">
-          <span>Li e aceito o
-            <a id="link-contrato" href="contrato-kaptura-hospedagem-v1.pdf" target="_blank" rel="noopener">Contrato
-            de Adesão ao Programa Kaptura</a>, em nome da empresa informada acima,
-            e declaro ter poderes para isso.</span>
-        </label>
-        <div class="error" id="erro_aceite"></div>
-
-        <button type="submit" class="btn btn-submit" id="btn-aceitar">
-          <span>Aceitar e ir pro pagamento</span>
-        </button>
-
-        <div class="error" id="erro-global" role="alert" aria-live="assertive"></div>
-
-        <p class="selo">SEU ACEITE É REGISTRADO COM DATA, HORA E IP<br>ANTES DE VOCÊ IR PRO PAGAMENTO.</p>
-
-      </form>
-    </section>
-
+<section class="secao">
+  <h2>O QUE SUA HOSPEDAGEM <span class="am">RECEBE</span></h2>
+  <div class="check-list">
+    <div class="check-item"><span class="c">✓</span><span><b>1 Reels em colaboração (collab)</b>, aparece nos dois feeds ao mesmo tempo</span></div>
+    <div class="check-item"><span class="c">✓</span><span><b>1 post no feed</b> do influenciador marcando a hospedagem</span></div>
+    <div class="check-item"><span class="c">✓</span><span><b>3 vídeos de recortes</b> da experiência nos stories</span></div>
+    <div class="check-item"><span class="c">✓</span><span><b>3 fotos por dia de estadia</b> nos stories</span></div>
+    <div class="check-item"><span class="c">✓</span><span><b>1 vídeo de depoimento</b> ao final da estadia, marcando a hospedagem</span></div>
+    <div class="check-item"><span class="c">✓</span><span><b>Direito de uso do material</b> pra postar nos seus canais e usar em anúncios</span></div>
   </div>
-</main>
+  <div class="pills">
+    <span class="pill">CURADORIA</span>
+    <span class="pill">CONTRATO</span>
+    <span class="pill">AUDITORIA</span>
+    <span class="pill">GARANTIA DE REPOSIÇÃO</span>
+  </div>
+  <p class="nota-permuta">
+    A permuta padrão é de 1 a 2 diárias com café da manhã, admitido 1 acompanhante,
+    conforme definido na Ordem de Sessão. Stories saem durante a estadia; o Reels e o
+    post do feed, em até 7 dias úteis após o check-out.
+  </p>
+</section>
+
+<section class="passos">
+  <h2>COMO <span class="cy">FUNCIONA</span></h2>
+  <div class="passo-grid">
+    <div class="passo"><span class="n">1</span><div class="t">Você assina</div><div class="d">Preenche os dados abaixo, aceita o contrato e ativa a assinatura no cartão.</div></div>
+    <div class="passo"><span class="n">2</span><div class="t">Selecionamos o influenciador</div><div class="d">Nossa curadoria encontra o influenciador com o perfil e o público certos pra sua hospedagem.</div></div>
+    <div class="passo"><span class="n">3</span><div class="t">Sessão em até 30 dias</div><div class="d">Influenciador hospedado, conteúdo produzido, entrega auditada. E todo mês tem de novo.</div></div>
+  </div>
+</section>
+
+<section class="preco">
+  <div class="de">de R$ 397/mês</div>
+  <div class="por">R$ 97<small>/MÊS</small></div>
+  <div class="cond">Condição de lançamento garantida por 12 meses · 1 sessão por mês · assinatura no cartão · cancele quando quiser, sem multa</div>
+  <a href="#adesao" class="cta-hero" style="background:var(--tinta);color:var(--amarelo);margin-top:20px;"><span>GARANTIR A CONDIÇÃO DE LANÇAMENTO →</span></a>
+</section>
+
+<section class="form-wrap" id="adesao">
+  <div class="viewfinder">
+    <span class="vf tl"></span><span class="vf tr"></span><span class="vf bl"></span><span class="vf br"></span>
+    <h2>ENTRA PRA REDE</h2>
+    <p class="hint">Preenche os dados da hospedagem, aceita o contrato e segue direto pro pagamento.</p>
+
+    <form id="form-aceite" novalidate autocomplete="on">
+
+      <label for="razao">Razão social ou nome da hospedagem</label>
+      <input type="text" id="razao" name="razao" placeholder="Ex: Pousada Mar Alto Ltda" autocomplete="organization">
+
+      <label for="cnpj">CNPJ (ou CPF, se não tiver empresa aberta)</label>
+      <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ ou CPF" inputmode="numeric">
+
+      <label for="nome">Nome do responsável</label>
+      <input type="text" id="nome" name="nome" placeholder="Nome e sobrenome" autocomplete="name">
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="voce@suahospedagem.com.br" autocomplete="email">
+
+      <label for="whats">WhatsApp</label>
+      <input type="tel" id="whats" name="whats" placeholder="(12) 99999-9999" inputmode="tel">
+
+      <!-- Honeypot: invisível para gente, preenchido por robô. -->
+      <div class="hp" aria-hidden="true">
+        <label for="site_url">Não preencha este campo</label>
+        <input type="text" id="site_url" name="site_url" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label class="aceite" for="ck">
+        <input type="checkbox" id="ck" name="ck">
+        <span>Li e aceito o <a id="link-contrato" href="contrato-kaptura-hospedagem-v1.pdf" target="_blank" rel="noopener">Contrato de Adesão ao Programa Kaptura (v1.0)</a> e concordo com o modelo de permuta, os planos e as condições nele descritos.</span>
+      </label>
+
+      <div class="erro" id="erro" role="alert" aria-live="assertive"></div>
+
+      <button type="submit" class="btn" id="btn"><span>Continuar para o pagamento →</span></button>
+      <div class="seguro">🔒 Pagamento processado em ambiente seguro. Cobrança automática no cartão, cancele quando quiser.</div>
+
+    </form>
+  </div>
+</section>
 
 <footer>
   <div class="fl">KAPT<span class="u">U</span>RA</div>
-  <div class="fr">um programa Komplexa · CNPJ 63.097.480/0001-70 · CONTRATO <span id="rodape-versao">v1.0-ago2026</span></div>
+  <div class="fr">um programa Komplexa · CNPJ 63.097.480/0001-70</div>
 </footer>
 
-<div class="barra" id="barra">
-  <div class="v">PROGRAMA KAPTURA<b>R$97/mês</b></div>
-  <button type="button" class="btn" id="btn-barra"><span>Fazer adesão</span></button>
+<div class="barra-fixa" id="barraFixa" aria-hidden="true">
+  <span class="p">R$ 97<small>/MÊS</small></span>
+  <a href="#adesao"><span>Entrar pra rede →</span></a>
 </div>
 
 <script>
@@ -495,22 +300,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      do n8n, jamais neste arquivo.
      ================================================================= */
 
-  // Link de checkout da Hypercash (assinatura recorrente R$97/mês).
+  var WEBHOOK_ACEITE = "https://webhook.komplexagrowth.com/webhook/kaptura-aceite";
   var LINK_PAGAMENTO = "https://pay.hypercash.com.br/pt/subscription/c1d6c877-97bf-4a21-823a-152e3c32873a";
 
-  // URL de produção do nó 1 do workflow "Kaptura · Aceite de Contrato".
-  // Mesmo host do webhook da candidatura (index.html); o path vem do nó 1.
-  var WEBHOOK_ACEITE = "https://webhook.komplexagrowth.com/webhook/kaptura-aceite";
-
-  // FASE 5: as constantes abaixo mudam juntas, no mesmo commit, sempre
-  // que o contrato ganhar uma versão nova.
+  // FASE 5: mudam juntas, no mesmo commit, a cada versão do contrato.
   var VERSAO_CONTRATO  = "v1.0-ago2026";
   var ARQUIVO_CONTRATO = "contrato-kaptura-hospedagem-v1.pdf";
 
   // Usado na mensagem de erro quando o registro do aceite falha.
   var WHATSAPP_SUPORTE = "COLOQUE_AQUI_O_LINK_WA_ME_DO_SUPORTE";
 
-  var TIMEOUT_MS = 12000;      // corta requisição pendurada
+  var TIMEOUT_MS = 12000;
   var ESPERA_RETRY_MS = 1500;
 
   /* ================================================================= */
@@ -519,54 +319,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function digitos(v){ return String(v || "").replace(/\D/g, ""); }
   function placeholderAinda(v){ return /^COLOQUE_AQUI/.test(v); }
 
+  var erro = $("erro");
+
   /* ---------- Máscaras ---------- */
 
-  function mascaraDocumento(v){
-    var d = digitos(v).slice(0, 14);
-    if (d.length <= 11){
-      return d
-        .replace(/^(\d{3})(\d)/, "$1.$2")
-        .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
-        .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+  $("cnpj").addEventListener("input", function(){
+    var v = digitos($("cnpj").value).slice(0, 14);
+    if (v.length <= 11){
+      if (v.length > 9)      v = v.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2}).*/, "$1.$2.$3-$4");
+      else if (v.length > 6) v = v.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, "$1.$2.$3");
+      else if (v.length > 3) v = v.replace(/^(\d{3})(\d{0,3}).*/, "$1.$2");
+    } else {
+      if (v.length > 12) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2}).*/, "$1.$2.$3/$4-$5");
+      else               v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4}).*/, "$1.$2.$3/$4");
     }
-    return d
-      .replace(/^(\d{2})(\d)/, "$1.$2")
-      .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
-      .replace(/^(\d{2})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3/$4")
-      .replace(/^(\d{2})\.(\d{3})\.(\d{3})\/(\d{4})(\d)/, "$1.$2.$3/$4-$5");
-  }
+    $("cnpj").value = v;
+  });
 
-  function mascaraWhatsapp(v){
-    var d = digitos(v).slice(0, 11);
-    if (d.length <= 2)  return d.replace(/^(\d{0,2})/, "($1");
-    if (d.length <= 6)  return d.replace(/^(\d{2})(\d+)/, "($1) $2");
-    if (d.length <= 10) return d.replace(/^(\d{2})(\d{4})(\d+)/, "($1) $2-$3");
-    return d.replace(/^(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
-  }
+  $("whats").addEventListener("input", function(){
+    var v = digitos($("whats").value).slice(0, 11);
+    if (v.length > 6)      v = "(" + v.slice(0,2) + ") " + v.slice(2,7) + "-" + v.slice(7);
+    else if (v.length > 2) v = "(" + v.slice(0,2) + ") " + v.slice(2);
+    $("whats").value = v;
+  });
 
-  function ligarMascara(el, fn){
-    el.addEventListener("input", function(){
-      var pos = el.selectionStart;
-      var antes = el.value.length;
-      el.value = fn(el.value);
-      // Mantém o cursor no lugar quando o usuário edita no meio do campo.
-      if (pos !== null && pos < antes){
-        var novo = pos + (el.value.length - antes);
-        try { el.setSelectionRange(novo, novo); } catch (e) {}
-      }
-    });
-  }
-
-  /* ---------- Validadores de documento ---------- */
+  /* ---------- Validadores de documento ----------
+     Conferem os dígitos verificadores, não só a quantidade: CNPJ digitado
+     errado só apareceria lá na frente, na hora de emitir nota. */
 
   function validaCPF(d){
     if (d.length !== 11 || /^(\d)\1{10}$/.test(d)) return false;
     var i, soma = 0, resto;
-    for (i = 1; i <= 9; i++) soma += parseInt(d.charAt(i - 1), 10) * (11 - i);
+    for (i = 1; i <= 9; i++) soma += parseInt(d.charAt(i-1), 10) * (11 - i);
     resto = (soma * 10) % 11; if (resto === 10) resto = 0;
     if (resto !== parseInt(d.charAt(9), 10)) return false;
     soma = 0;
-    for (i = 1; i <= 10; i++) soma += parseInt(d.charAt(i - 1), 10) * (12 - i);
+    for (i = 1; i <= 10; i++) soma += parseInt(d.charAt(i-1), 10) * (12 - i);
     resto = (soma * 10) % 11; if (resto === 10) resto = 0;
     return resto === parseInt(d.charAt(10), 10);
   }
@@ -582,100 +370,81 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var r = soma % 11;
       return r < 2 ? 0 : 11 - r;
     }
-    if (dv(d.slice(0, 12)) !== parseInt(d.charAt(12), 10)) return false;
-    return dv(d.slice(0, 13)) === parseInt(d.charAt(13), 10);
-  }
-
-  /* ---------- Erros ---------- */
-
-  var CAMPOS = ["razao_social","documento","responsavel","email","whatsapp","aceite"];
-
-  function marcarErro(campo, msg){
-    var el = $(campo), box = $("erro_" + campo);
-    if (el) el.setAttribute("aria-invalid", "true");
-    if (box){ box.textContent = msg; box.className = "error show"; }
-  }
-
-  function limparErros(){
-    for (var i = 0; i < CAMPOS.length; i++){
-      var el = $(CAMPOS[i]), box = $("erro_" + CAMPOS[i]);
-      if (el) el.removeAttribute("aria-invalid");
-      if (box){ box.textContent = ""; box.className = "error"; }
-    }
-    var g = $("erro-global");
-    g.innerHTML = ""; g.className = "error";
-  }
-
-  function erroGlobal(html){
-    var g = $("erro-global");
-    g.innerHTML = html;
-    g.className = "error show";
-    g.scrollIntoView({ behavior:"smooth", block:"center" });
+    if (dv(d.slice(0,12)) !== parseInt(d.charAt(12), 10)) return false;
+    return dv(d.slice(0,13)) === parseInt(d.charAt(13), 10);
   }
 
   /* ---------- Validação ---------- */
 
-  function validar(){
-    limparErros();
-    var ok = true, primeiro = null;
+  var CAMPOS = ["razao","cnpj","nome","email","whats"];
 
-    function falha(campo, msg){
-      marcarErro(campo, msg);
-      if (!primeiro) primeiro = campo;
-      ok = false;
+  function limparMarcas(){
+    for (var i = 0; i < CAMPOS.length; i++) $(CAMPOS[i]).removeAttribute("aria-invalid");
+    erro.classList.remove("show");
+    erro.textContent = "";
+  }
+
+  function falha(campo, msg){
+    erro.textContent = msg;
+    erro.classList.add("show");
+    if (campo){
+      var el = $(campo);
+      el.setAttribute("aria-invalid", "true");
+      el.scrollIntoView({ block:"center" });
+      el.focus({ preventScroll:true });
     }
+    return false;
+  }
 
-    if ($("razao_social").value.trim().length < 3)
-      falha("razao_social", "Informe a razão social ou o nome do estabelecimento.");
+  function valida(){
+    limparMarcas();
 
-    var doc = digitos($("documento").value);
-    if (doc.length !== 11 && doc.length !== 14){
-      falha("documento", "Informe um CNPJ (14 dígitos) ou CPF (11 dígitos).");
-    } else if (doc.length === 11 && !validaCPF(doc)){
-      falha("documento", "Esse CPF não confere. Verifica os números.");
-    } else if (doc.length === 14 && !validaCNPJ(doc)){
-      falha("documento", "Esse CNPJ não confere. Verifica os números.");
-    }
+    if ($("razao").value.trim().length < 2)
+      return falha("razao", "Escreve o nome da hospedagem.");
 
-    if ($("responsavel").value.trim().length < 3)
-      falha("responsavel", "Informe o nome de quem está aceitando o contrato.");
+    var doc = digitos($("cnpj").value);
+    if (doc.length !== 11 && doc.length !== 14)
+      return falha("cnpj", "Confere o documento: CPF tem 11 dígitos, CNPJ tem 14.");
+    if (doc.length === 11 && !validaCPF(doc))
+      return falha("cnpj", "Esse CPF não confere. Verifica os números.");
+    if (doc.length === 14 && !validaCNPJ(doc))
+      return falha("cnpj", "Esse CNPJ não confere. Verifica os números.");
+
+    if ($("nome").value.trim().split(" ").filter(Boolean).length < 2)
+      return falha("nome", "Precisa do nome completo do responsável.");
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($("email").value.trim()))
-      falha("email", "Informe um e-mail válido — o contrato vai pra ele.");
+      return falha("email", "Esse e-mail não parece válido.");
 
-    var zap = digitos($("whatsapp").value);
-    if (zap.length !== 10 && zap.length !== 11)
-      falha("whatsapp", "Informe o WhatsApp com DDD.");
+    if (digitos($("whats").value).length < 10)
+      return falha("whats", "Confere o WhatsApp com DDD.");
 
-    if (!$("aceite").checked)
-      falha("aceite", "Para seguir, é preciso marcar o aceite do contrato.");
+    if (!$("ck").checked)
+      return falha(null, "Pra continuar, precisa ler e aceitar o contrato.");
 
-    if (primeiro){
-      var alvo = $(primeiro);
-      alvo.scrollIntoView({ behavior:"smooth", block:"center" });
-      if (primeiro !== "aceite") alvo.focus({ preventScroll:true });
-    }
-    return ok;
+    return true;
   }
 
   /* ---------- Payload ---------- */
 
   function montarPayload(){
-    var doc = digitos($("documento").value);
+    var doc = digitos($("cnpj").value);
     return {
+      evento: "kaptura_aceite_contrato",
       versao_contrato: VERSAO_CONTRATO,
+      timestamp: new Date().toISOString(),
+      origem_pagina: window.location.href,
+      user_agent: navigator.userAgent,
       contratante: {
-        razao_social:   $("razao_social").value.trim(),
+        razao_social:   $("razao").value.trim(),
         documento:      doc,
         tipo_documento: doc.length === 14 ? "cnpj" : "cpf",
-        responsavel:    $("responsavel").value.trim(),
+        responsavel:    $("nome").value.trim(),
         email:          $("email").value.trim(),
-        whatsapp:       $("whatsapp").value.trim()
+        whatsapp:       $("whats").value.trim()
       },
-      user_agent:    navigator.userAgent,
-      origem_pagina: window.location.href,
-      aceito_em:     new Date().toISOString(),
-      site_url:      $("site_url").value   // honeypot
+      aceite: { contrato_lido_e_aceito: true },
+      site_url: $("site_url").value   // honeypot
     };
   }
 
@@ -692,8 +461,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       signal:  ctrl ? ctrl.signal : undefined
     }).then(function(res){
       if (timer) clearTimeout(timer);
-      // Só 2xx conta como aceite registrado.
-      if (!res.ok) throw new Error("HTTP " + res.status);
+      if (!res.ok) throw new Error("HTTP " + res.status);   // só 2xx conta
       return true;
     }).catch(function(err){
       if (timer) clearTimeout(timer);
@@ -701,16 +469,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
   }
 
-  function esperar(ms){
-    return new Promise(function(r){ setTimeout(r, ms); });
-  }
+  function esperar(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 
-  function travarBotao(travado){
-    var b = $("btn-aceitar");
-    b.disabled = travado;
-    b.innerHTML = travado
-      ? "<span>Registrando seu aceite...</span>"
-      : "<span>Aceitar e ir pro pagamento</span>";
+  function travar(t){
+    var b = $("btn");
+    b.disabled = t;
+    b.innerHTML = t ? "<span>Registrando aceite…</span>"
+                    : "<span>Continuar para o pagamento →</span>";
   }
 
   var MSG_FALHA =
@@ -718,34 +483,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     "Se persistir, chama a gente no WhatsApp.";
 
   function mostrarFalha(){
-    if (placeholderAinda(WHATSAPP_SUPORTE)){ erroGlobal(MSG_FALHA); return; }
-    erroGlobal(MSG_FALHA.replace(
-      "no WhatsApp",
-      'no <a href="' + WHATSAPP_SUPORTE + '" target="_blank" rel="noopener">WhatsApp</a>'
-    ));
+    var html = placeholderAinda(WHATSAPP_SUPORTE)
+      ? MSG_FALHA
+      : MSG_FALHA.replace("no WhatsApp",
+          'no <a href="' + WHATSAPP_SUPORTE + '" target="_blank" rel="noopener">WhatsApp</a>');
+    erro.innerHTML = html;
+    erro.classList.add("show");
+    erro.scrollIntoView({ block:"center" });
   }
 
   function enviar(e){
     if (e) e.preventDefault();
-    if (!validar()) return;
+    if (!valida()) return;
 
-    // Guarda de configuração: sem webhook não existe prova do aceite,
-    // e sem link de pagamento o redirect levaria a lugar nenhum.
+    // Sem webhook não existe prova do aceite; sem link de pagamento o
+    // redirect levaria a lugar nenhum. Nos dois casos, não avança.
     if (placeholderAinda(WEBHOOK_ACEITE) || placeholderAinda(LINK_PAGAMENTO)){
       console.error("[Kaptura] Constante de configuração não preenchida — ver docs/FLUXO-ACEITE.md.");
       mostrarFalha();
       return;
     }
 
-    travarBotao(true);
+    travar(true);
     var payload = montarPayload();
-
     if (window.dataLayer) window.dataLayer.push({ event: "kaptura_aceite_enviado" });
 
     /* DECISÃO TOMADA: o redirect é BLOQUEADO se o registro falhar.
-       Aceite sem registro é contrato sem prova. Tenta uma vez, faz um
-       retry, e só então redireciona — ou desiste e devolve o controle
-       para o usuário. */
+       Aceite sem registro é contrato sem prova. Tenta, faz um retry, e
+       só então redireciona — ou devolve o controle pro usuário. */
     postAceite(payload)
       .catch(function(){
         return esperar(ESPERA_RETRY_MS).then(function(){ return postAceite(payload); });
@@ -757,48 +522,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .catch(function(err){
         console.error("[Kaptura] Falha ao registrar o aceite:", err);
         if (window.dataLayer) window.dataLayer.push({ event: "kaptura_aceite_falhou" });
-        travarBotao(false);
+        travar(false);
         mostrarFalha();
       });
   }
 
-  /* ---------- Ligações ---------- */
-
-  ligarMascara($("documento"), mascaraDocumento);
-  ligarMascara($("whatsapp"), mascaraWhatsapp);
-
   $("form-aceite").addEventListener("submit", enviar);
 
-  $("btn-barra").addEventListener("click", function(){
-    $("form").scrollIntoView({ behavior:"smooth", block:"start" });
-    setTimeout(function(){ $("razao_social").focus({ preventScroll:true }); }, 400);
+  $("ck").addEventListener("change", function(){
+    if (this.checked) limparMarcas();
   });
 
-  $("aceite").addEventListener("change", function(){
-    if (this.checked){
-      var box = $("erro_aceite");
-      box.textContent = ""; box.className = "error";
-    }
-  });
-
-  // Mantém contrato, link e rodapé sempre na mesma versão (Fase 5).
+  // Mantém contrato e link sempre na mesma versão (Fase 5).
   $("link-contrato").setAttribute("href", ARQUIVO_CONTRATO);
-  $("rodape-versao").textContent = VERSAO_CONTRATO;
 
-  // Esconde a barra fixa quando o botão real já está visível, para os
-  // dois nunca disputarem a mesma área da tela. Medição direta em vez de
-  // IntersectionObserver: funciona em qualquer browser e é determinística.
-  function ajustarBarra(){
-    var r = $("btn-aceitar").getBoundingClientRect();
-    var naTela = r.top < window.innerHeight && r.bottom > 0;
-    $("barra").classList.toggle("oculta", naTela);
+  /* ---------- Barra fixa ----------
+     Aparece só quando nem o hero nem o formulário estão na tela, pra
+     nunca competir com um CTA já visível. Medição direta em vez de
+     IntersectionObserver: determinística e testável. */
+
+  var barra = $("barraFixa");
+  var heroEl = document.querySelector(".hero");
+  var formEl = $("adesao");
+
+  function naTela(el){
+    var r = el.getBoundingClientRect();
+    return r.top < window.innerHeight && r.bottom > 0;
   }
-  window.addEventListener("scroll", ajustarBarra, { passive:true });
-  window.addEventListener("resize", ajustarBarra);
-  ajustarBarra();
+  function atualizaBarra(){
+    var mostrar = !naTela(heroEl) && !naTela(formEl);
+    barra.classList.toggle("on", mostrar);
+    barra.setAttribute("aria-hidden", mostrar ? "false" : "true");
+  }
+  window.addEventListener("scroll", atualizaBarra, { passive:true });
+  window.addEventListener("resize", atualizaBarra);
+  atualizaBarra();
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    document.documentElement.style.scrollBehavior = "smooth";
+  }
 
 })();
 </script>
-
 </body>
 </html>
