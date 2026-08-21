@@ -42,6 +42,13 @@ Nada disso vive no código — são valores que só o Cauã tem.
 | Item | Onde | Status |
 |---|---|---|
 | `LINK_PAGAMENTO` (Hypercash) | `assinar.html` | ✅ Configurado — plano "Kaptura Creators · Assinatura", R$97,00/mês |
+
+> **A taxa da Hypercash é absorvida pela Komplexa.** O checkout cobra R$97,00
+> limpos, sem linha de taxas. Isso não é acidente: a página anuncia R$97/mês e o
+> **Anexo II do contrato diz "R$ 97,00 por mês"**. Se alguém reativar o repasse
+> da taxa no painel da Hypercash, o cliente passa a ser cobrado acima do que
+> aceitou por contrato. Ao mexer no plano, conferir os três: página, Anexo II e
+> valor final do checkout.
 | `WEBHOOK_ACEITE` | `assinar.html` | Pré-preenchido: `https://webhook.komplexagrowth.com/webhook/kaptura-aceite` — **conferir** contra a URL de produção do nó 1 depois de importar o workflow |
 | `WHATSAPP_SUPORTE` | `assinar.html` | **Placeholder** — link `wa.me` usado na mensagem de erro |
 | `VERSAO_CONTRATO` | `assinar.html` | `v1.0-ago2026` |
