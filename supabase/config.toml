@@ -1,0 +1,10 @@
+project_id = "komplexa-form"
+
+[functions.kaptura-aceite]
+# A página de adesão chama esta função direto do browser, sem sessão de
+# usuário. Com verify_jwt ligado (o padrão), toda requisição voltaria 401
+# e o aceite nunca seria registrado.
+#
+# Isso NÃO deixa o banco exposto: a função valida os dados no servidor,
+# tem honeypot e grava com o role kaptura_n8n, que só pode inserir e ler.
+verify_jwt = false
