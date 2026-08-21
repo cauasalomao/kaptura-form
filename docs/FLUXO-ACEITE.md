@@ -41,7 +41,7 @@ Nada disso vive no código — são valores que só o Cauã tem.
 
 | Item | Onde | Status |
 |---|---|---|
-| `LINK_PAGAMENTO` (Hypercash) | `assinar.html` | **Placeholder** — colar o link do plano de R$97/mês |
+| `LINK_PAGAMENTO` (Hypercash) | `assinar.html` | ✅ Configurado — plano "Kaptura Creators · Assinatura", R$97,00/mês |
 | `WEBHOOK_ACEITE` | `assinar.html` | Pré-preenchido: `https://webhook.komplexagrowth.com/webhook/kaptura-aceite` — **conferir** contra a URL de produção do nó 1 depois de importar o workflow |
 | `WHATSAPP_SUPORTE` | `assinar.html` | **Placeholder** — link `wa.me` usado na mensagem de erro |
 | `VERSAO_CONTRATO` | `assinar.html` | `v1.0-ago2026` |
