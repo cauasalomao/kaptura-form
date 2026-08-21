@@ -169,11 +169,15 @@ de e-mail é registrada com o prefixo `[kaptura-aceite]`.
    registros DNS que o painel fornecer (SPF, DKIM, DMARC).
 3. Aguardar a verificação, criar a API key e guardá-la nas credenciais do n8n
    como Header Auth: `Name = Authorization`, `Value = Bearer re_xxx`.
-4. Remetente: **`Kaptura <contratos@komplexagrowth.com>`**.
+4. Remetente: **`Kaptura <contratos@contato.komplexagrowth.com>`**.
 
-> O domínio do remetente precisa estar verificado no Resend, senão o envio volta
-> 403. O plano free permite **um domínio só**, e o `komplexagrowth.com` já está
-> verificado — por isso não usamos `kapturacreators.com.br`. O nome de exibição
+> ⚠️ Repare no **subdomínio**: o que está verificado no Resend é
+> `contato.komplexagrowth.com`, **não** o domínio raiz. Enviar de
+> `@komplexagrowth.com` volta `403 not authorized to send emails from`. A chave
+> da API também está restrita a esse subdomínio.
+>
+> O plano free permite **um domínio só** — por isso não usamos
+> `kapturacreators.com.br`. O nome de exibição
 > continua "Kaptura", que é o que o cliente vê na caixa de entrada.
 >
 > As respostas vão para `ACEITES_EMAIL_INTERNO` via `reply_to`: o endereço do

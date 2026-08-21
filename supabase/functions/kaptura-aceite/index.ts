@@ -35,14 +35,18 @@ const NOME_ARQUIVO_CONTRATO = "contrato-kaptura-hospedagem-v1.pdf";
 
 /**
  * O domínio do remetente PRECISA estar verificado no Resend, senão o envio
- * volta 403. Usamos o da Komplexa Growth, que já está verificado, e não o
- * kapturacreators.com.br -- o plano free do Resend só permite um domínio.
+ * volta 403 "not authorized to send emails from ...".
  *
- * O nome de exibição continua "Kaptura": é o que o cliente vê na caixa.
- * Dá pra sobrescrever pelo secret REMETENTE sem novo deploy.
+ * Repare no SUBDOMÍNIO: o que está verificado é `contato.komplexagrowth.com`,
+ * não `komplexagrowth.com`. Enviar do domínio raiz é rejeitado, e a chave da
+ * API também está restrita a esse subdomínio.
+ *
+ * Não usamos kapturacreators.com.br porque o plano free do Resend permite um
+ * domínio só. O nome de exibição continua "Kaptura": é o que o cliente vê na
+ * caixa de entrada. Dá pra sobrescrever tudo pelo secret REMETENTE, sem deploy.
  */
 const REMETENTE = Deno.env.get("REMETENTE") ??
-  "Kaptura <contratos@komplexagrowth.com>";
+  "Kaptura <contratos@contato.komplexagrowth.com>";
 
 // ---------------------------------------------------------------------
 // Helpers
