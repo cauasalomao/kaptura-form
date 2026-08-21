@@ -64,3 +64,11 @@ Nesse caso os arquivos `CNAME` e `.nojekyll` são ignorados sem causar problema,
 - Testar o formulário completo em produção e conferir o payload chegando no n8n
 - Validar o preview de compartilhamento (og tags) em https://www.opengraph.xyz
 - Apontar o link da bio do Instagram direto pra página
+
+## Fluxo de adesão e aceite de contrato
+
+A página `assinar.html` registra o aceite do contrato (Supabase, append-only)
+antes de mandar o cliente pro checkout da Hypercash. A automação vive no n8n.
+
+Documentação completa — banco, workflow, e-mails, versionamento do contrato,
+testes e operação: [`docs/FLUXO-ACEITE.md`](docs/FLUXO-ACEITE.md).

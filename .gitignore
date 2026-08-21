@@ -1,0 +1,16 @@
+# Segredos: nunca comitar
+.env
+.env.*
+*.key
+*.pem
+supabase/.temp/
+n8n/*.credentials.json
+n8n/*.secret.json
+
+# Ruido de SO / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+.claude/
