@@ -84,20 +84,31 @@ async function sha256(texto: string): Promise<string> {
 
 /**
  * O IP vem de cabeçalho, e cabeçalho de requisição é dado do cliente até
- * prova em contrário. `x-forwarded-for` é uma lista onde a infra ANEXA o
- * IP real observado no fim -- se o cliente mandar um XFF forjado, o valor
- * forjado fica na frente. Por isso pegamos o ÚLTIMO elemento, não o
- * primeiro: é o único que a nossa camada de rede escreveu.
+ * prova em contrário. Esta ordem foi MEDIDA contra a função publicada,
+ * não deduzida:
+ *
+ *   requisição limpa        -> cf-connecting-ip = IP real do cliente
+ *   x-forwarded-for forjado -> a Cloudflare reescreve o XFF; o valor
+ *                              forjado desaparece antes de chegar aqui
+ *   cf-connecting-ip forjado-> a Cloudflare rejeita na borda (erro 1000);
+ *                              a requisição nem chega na função
+ *
+ * Por isso `cf-connecting-ip` vem primeiro: é o único que o cliente não
+ * consegue influenciar.
+ *
+ * No fallback, o cliente está no PRIMEIRO elemento do XFF, não no último
+ * -- o último é a infraestrutura do próprio Supabase (99.82.164.x). Uma
+ * versão anterior lia o último e gravava o proxy em vez do cliente.
  */
 function extrairIp(headers: Headers): string {
-  const real = headers.get("x-real-ip");
-  if (real) return real.trim();
+  const cf = headers.get("cf-connecting-ip");
+  if (cf) return cf.trim();
 
   const xff = headers.get("x-forwarded-for");
   if (!xff) return "";
 
   const partes = xff.split(",").map((s) => s.trim()).filter(Boolean);
-  return partes.length ? partes[partes.length - 1] : "";
+  return partes.length ? partes[0] : "";
 }
 
 // Validação server-side. A página já valida, mas validação de cliente é
