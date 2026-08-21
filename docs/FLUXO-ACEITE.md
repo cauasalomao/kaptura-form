@@ -46,30 +46,45 @@ ser desfeito porque o Resend caiu — a falha vai pro log e o time reenvia.
 
 ---
 
-## Pendências de configuração
+## Estado da configuração
 
-Nada disso vive no código — são valores que só o Cauã tem.
+Tudo abaixo foi verificado em produção em 21/08/2026, com um aceite real de
+ponta a ponta: página → função → banco → e-mail com o PDF anexado → checkout.
 
-| Item | Onde | Status |
+| Item | Onde | Estado |
 |---|---|---|
-| `LINK_PAGAMENTO` (Hypercash) | `assinar.html` | ✅ Configurado — plano "Kaptura Creators · Assinatura", R$97,00/mês |
+| `LINK_PAGAMENTO` | `assinar.html` | ✅ plano "Kaptura Creators · Assinatura", R$97,00/mês |
+| `WEBHOOK_ACEITE` | `assinar.html` | ✅ `https://wngkogdqfqsjadwlqtnc.supabase.co/functions/v1/kaptura-aceite` |
+| `VERSAO_CONTRATO` | `assinar.html` | ✅ `v1.0-ago2026` |
+| PDF do contrato | raiz do repo | ✅ 5 páginas, rodapé com versão e data |
+| `KAPTURA_DB_URL` | Secrets da função | ✅ role `kaptura_app`, conexão direta na 5432 |
+| `RESEND_API_KEY` | Secrets da função | ✅ restrita a `contato.komplexagrowth.com` |
+| `ACEITES_EMAIL_INTERNO` | Secrets da função | ✅ backup + `reply_to` |
+| `REMETENTE` | Secrets da função | opcional — sobrescreve o padrão sem deploy |
+| `WHATSAPP_SUPORTE` | `assinar.html` | ⏳ **único placeholder restante** |
 
-> **A taxa da Hypercash é absorvida pela Komplexa.** O checkout cobra R$97,00
-> limpos, sem linha de taxas. Isso não é acidente: a página anuncia R$97/mês e o
-> **Anexo II do contrato diz "R$ 97,00 por mês"**. Se alguém reativar o repasse
-> da taxa no painel da Hypercash, o cliente passa a ser cobrado acima do que
-> aceitou por contrato. Ao mexer no plano, conferir os três: página, Anexo II e
-> valor final do checkout.
-| `WEBHOOK_ACEITE` | `assinar.html` | **Placeholder** — `https://<ref>.supabase.co/functions/v1/kaptura-aceite`. O `<ref>` está em Project Settings → General → Reference ID |
-| `KAPTURA_DB_URL` | Secrets da Edge Function | Connection string do `kaptura_app` |
-| `ACEITES_EMAIL_INTERNO` | Secrets da Edge Function | Caixa que recebe o backup do JSON |
-| `WHATSAPP_SUPORTE` | `assinar.html` | **Placeholder** — link `wa.me` usado na mensagem de erro |
-| `VERSAO_CONTRATO` | `assinar.html` | `v1.0-ago2026` |
-| PDF do contrato | Raiz do repo | **Falta subir** |
-| Destinatário do backup | nó 4 do workflow | **Confirmar endereço** (`CONFIRMAR_COM_CAUA@…`) |
-| Connection string `kaptura_app` | Credenciais n8n | Criar na Fase 1 |
-| `RESEND_API_KEY` | Credenciais n8n | Criar na Fase 3 |
-| OAuth Gmail | Credenciais n8n | Conta Workspace existente |
+`WHATSAPP_SUPORTE` não bloqueia nada: sem ele, a mensagem de erro aparece em
+texto puro, sem o link. Com ele, "chama a gente no WhatsApp" vira clicável.
+
+### Preço: conferir os três juntos
+
+**A taxa da Hypercash é absorvida pela Komplexa.** O checkout cobra R$97,00
+limpos, sem linha de taxas. Isso não é acidente: a página anuncia R$97/mês e o
+**Anexo II do contrato diz "R$ 97,00 por mês"**. Se alguém reativar o repasse da
+taxa no painel, o cliente passa a ser cobrado acima do que aceitou por contrato.
+Ao mexer no plano, conferir os três: página, Anexo II e valor final do checkout.
+
+### Deploy da função
+
+O CLI do Supabase precisa estar atualizado. Versões antigas (testado na 2.98.2)
+falham no upload com `An existing connection was forcibly closed by the remote
+host` — não é rede nem firewall, é bug da versão. A 2.115.0 funciona.
+
+```bash
+supabase functions deploy kaptura-aceite --project-ref wngkogdqfqsjadwlqtnc --no-verify-jwt
+```
+
+---
 
 A página se protege sozinha: enquanto `WEBHOOK_ACEITE` ou `LINK_PAGAMENTO`
 estiverem com placeholder, o botão **não redireciona** — mostra a mensagem de
@@ -206,32 +221,56 @@ ela, e o registro no banco guarda a versão aceita.
 
 ## Fase 6 · Testes de aceitação
 
-Rodar todos antes de liberar.
+Todos executados e aprovados em 21/08/2026, contra a função publicada.
 
-| # | Teste | Esperado |
+| # | Teste | Resultado |
 |---|---|---|
-| 1 | Formulário completo com CNPJ de 14 dígitos | Linha no Supabase com `ip`, `user_agent` e `hash_payload` preenchidos; backup na caixa interna; e-mail de confirmação com PDF anexado; redirect para a Hypercash no plano de R$97/mês |
-| 2 | Mesmo fluxo com CPF de 11 dígitos | `tipo_documento = 'cpf'` no banco |
-| 3 | Avançar sem marcar o checkbox | Bloqueado, com mensagem no campo |
-| 4 | URL do webhook inválida temporariamente | **Não redireciona**, mostra a mensagem de erro, reabilita o botão (após 2 tentativas) |
-| 5 | Preencher o honeypot pelo console | Nada gravado no banco |
-| 6 | UPDATE/DELETE como `kaptura_app` | Negado — rodar `supabase/testes/verificar_append_only.sql` |
-| 7 | Viewport 390px | Formulário, checkbox e barra fixa sem sobreposição |
+| 1 | Aceite completo com CNPJ válido | ✅ linha gravada com `ip`, `user_agent` e `hash_payload` |
+| 2 | Mesmo fluxo com CPF | ✅ `tipo_documento = 'cpf'` |
+| 3 | Documento com dígito verificador errado | ✅ `400`, nada gravado |
+| 4 | Sem marcar o checkbox | ✅ bloqueado na página, sem requisição |
+| 5 | Webhook falhando | ✅ 2 tentativas, **sem redirect**, botão reabilitado |
+| 6 | Honeypot preenchido | ✅ `200` sem gravar |
+| 7 | `GET` em vez de `POST` | ✅ `405` |
+| 8 | UPDATE/DELETE como `kaptura_app` | ✅ `permission denied` nos dois |
+| 9 | Viewport 390px e 1265px | ✅ sem sobreposição, sem scroll horizontal |
+| 10 | Aceite real ponta a ponta | ✅ e-mail com PDF anexado + backup interno + checkout |
 
-Comandos úteis para o teste 5, no console da página:
+### Teste do IP: por que ele existe
 
-```javascript
-document.getElementById('site_url').value = 'http://bot.exemplo'
-```
+O campo `ip` é o que dá valor probatório ao registro, e cabeçalho de requisição
+é dado do cliente até prova em contrário. A regra de extração foi **medida**
+contra a função publicada, não deduzida:
 
-Depois preencher o resto normalmente e enviar: a página envia, o webhook
-responde 200, e o nó 2 descarta antes do INSERT. Confirmar no Supabase que
-nenhuma linha nova apareceu.
+| Requisição | `cf-connecting-ip` | `x-forwarded-for` | Gravado |
+|---|---|---|---|
+| Limpa | IP real | `<cliente>,<cliente>, 99.82.164.x` | ✅ IP real |
+| `X-Forwarded-For: 6.6.6.6` forjado | IP real | o `6.6.6.6` **desaparece** | ✅ IP real |
+| `CF-Connecting-IP` forjado | — | — | Cloudflare rejeita na borda (erro 1000) |
 
-Servidor local para os testes 3, 4, 5 e 7:
+Duas lições que valem para qualquer mudança futura nesse campo:
+
+- `cf-connecting-ip` vem primeiro porque é o único que o cliente não influencia.
+- No fallback, o cliente é o **primeiro** elemento do `x-forwarded-for`. Uma
+  versão anterior lia o último e gravava `99.82.164.x` — a infraestrutura do
+  próprio Supabase — em todos os aceites.
+
+Para repetir o teste:
 
 ```bash
-python -m http.server 8080
+curl -X POST -H "Content-Type: application/json" -H "X-Forwarded-For: 6.6.6.6"   -d '{"versao_contrato":"v1.0-ago2026","contratante":{...}}'   https://wngkogdqfqsjadwlqtnc.supabase.co/functions/v1/kaptura-aceite
+```
+
+Depois conferir no banco que o `ip` gravado é o seu, não `6.6.6.6`.
+
+### Limpar linhas de teste
+
+O `kaptura_app` não consegue apagar — é o append-only funcionando. Rodar como
+`postgres` no SQL Editor:
+
+```sql
+delete from kaptura_aceites
+where razao_social like 'TESTE%' or razao_social like 'FINAL%';
 ```
 
 ---
