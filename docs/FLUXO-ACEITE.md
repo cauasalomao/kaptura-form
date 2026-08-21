@@ -125,6 +125,7 @@ Supabase → projeto `komplexa-form` → **Edge Functions → Secrets**:
 | `RESEND_API_KEY` | `re_...` (Fase 3) |
 | `ACEITES_EMAIL_INTERNO` | caixa interna que recebe o backup |
 | `CONTRATO_URL` | *(opcional)* URL do PDF; o padrão já aponta pro domínio de produção |
+| `REMETENTE` | *(opcional)* sobrescreve o remetente sem novo deploy |
 
 Nenhum desses valores vai pro repositório.
 
@@ -168,7 +169,15 @@ de e-mail é registrada com o prefixo `[kaptura-aceite]`.
    registros DNS que o painel fornecer (SPF, DKIM, DMARC).
 3. Aguardar a verificação, criar a API key e guardá-la nas credenciais do n8n
    como Header Auth: `Name = Authorization`, `Value = Bearer re_xxx`.
-4. Remetente: `contratos@kapturacreators.com.br`.
+4. Remetente: **`Kaptura <contratos@komplexagrowth.com>`**.
+
+> O domínio do remetente precisa estar verificado no Resend, senão o envio volta
+> 403. O plano free permite **um domínio só**, e o `komplexagrowth.com` já está
+> verificado — por isso não usamos `kapturacreators.com.br`. O nome de exibição
+> continua "Kaptura", que é o que o cliente vê na caixa de entrada.
+>
+> As respostas vão para `ACEITES_EMAIL_INTERNO` via `reply_to`: o endereço do
+> remetente é de disparo e ninguém acompanha.
 
 ---
 

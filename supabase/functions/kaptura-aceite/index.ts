@@ -32,7 +32,17 @@ const CONTRATO_URL = Deno.env.get("CONTRATO_URL") ??
   "https://kapturacreators.com.br/contrato-kaptura-hospedagem-v1.pdf";
 
 const NOME_ARQUIVO_CONTRATO = "contrato-kaptura-hospedagem-v1.pdf";
-const REMETENTE = "Kaptura <contratos@kapturacreators.com.br>";
+
+/**
+ * O domínio do remetente PRECISA estar verificado no Resend, senão o envio
+ * volta 403. Usamos o da Komplexa Growth, que já está verificado, e não o
+ * kapturacreators.com.br -- o plano free do Resend só permite um domínio.
+ *
+ * O nome de exibição continua "Kaptura": é o que o cliente vê na caixa.
+ * Dá pra sobrescrever pelo secret REMETENTE sem novo deploy.
+ */
+const REMETENTE = Deno.env.get("REMETENTE") ??
+  "Kaptura <contratos@komplexagrowth.com>";
 
 // ---------------------------------------------------------------------
 // Helpers
@@ -301,10 +311,13 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
   const emailInterno = Deno.env.get("ACEITES_EMAIL_INTERNO");
 
+  // O e-mail pede "responde este e-mail". Sem reply_to, a resposta cairia
+  // no endereço do remetente, que é de disparo e ninguém acompanha.
   const envios: Promise<void>[] = [
     enviarResend({
       from: REMETENTE,
       to: [dados.email],
+      ...(emailInterno ? { reply_to: [emailInterno] } : {}),
       subject: "Seu aceite do Contrato Kaptura foi registrado ✅",
       html: htmlConfirmacao(dados),
       attachments: anexos,
